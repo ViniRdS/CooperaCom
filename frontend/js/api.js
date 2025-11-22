@@ -9,7 +9,7 @@ const api = {
     baseUrl: apiBaseURL,
 
     login: (email, password) => {
-        return fetch(`${api.baseUrl}/login`, {
+        return fetch(`${api.baseUrl}/auth/login`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
@@ -64,11 +64,21 @@ const api = {
     },
 
     getUserProfile: () => {
-        const token = localStorage.getItem('token');
-        return fetch(`${api.baseUrl}/profile`, {
-            headers: {'Authorization': `Bearer ${token}`}
-        }).then(res => res.json());
-    },
+    const token = localStorage.getItem('token');
+    const userStorage = localStorage.getItem('user');
+
+    if (!token || !userStorage) {
+        return Promise.reject("Usuário não está logado");
+    }
+
+    const user = JSON.parse(userStorage);
+
+    return fetch(`${api.baseUrl}/users/${user.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    }).then(res => res.json());
+},
+
+
 
     updateProfile: (data) => {
         const token = localStorage.getItem('token');

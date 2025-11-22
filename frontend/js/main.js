@@ -26,7 +26,7 @@ async function setupNavbarLinks() {
 
   if (!token) {
     navLinks.innerHTML = `
-      <li><a href="projects.html">Projetos</a></li>
+      <li><a href="projects.html">Proje2tos</a></li>
       <li><a href="about.html">Sobre</a></li>
       <li><a href="contact.html">Contato</a></li>
       <li><a href="login.html">Entrar</a></li>
@@ -37,7 +37,7 @@ async function setupNavbarLinks() {
       const user = await api.getUserProfile();
       const firstName = user.name.split(' ')[0];
       navLinks.innerHTML = `
-        <li><a href="projects.html">Projetos</a></li>
+        <li><a href="projects.html">Proje3tos</a></li>
         <li><a href="create-project.html">Criar</a></li>
         <li><a href="about.html">Sobre</a></li>
         <li><a href="contact.html">Contato</a></li>
@@ -62,7 +62,7 @@ async function setupNavbarLinks() {
 
 function renderDefaultNavbar(navLinks) {
   navLinks.innerHTML = `
-    <li><a href="projects.html">Projetos</a></li>
+    <li><a href="projects.html">Projet4os</a></li>
     <li><a href="create-project.html">Criar</a></li>
     <li><a href="about.html">Sobre</a></li>
     <li><a href="contact.html">Contato</a></li>

@@ -1,4 +1,4 @@
-/*document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.querySelector('#loginForm');
     const registerForm = document.querySelector('#registerForm');
 
@@ -19,12 +19,13 @@
 
             if (res.token) {
                 localStorage.setItem('token', res.token);
+                localStorage.setItem('user', JSON.stringify(res.user));
                 msg.style.color = "green";
                 msg.textContent = "Login realizado! Redirecionando...";
                 setTimeout(() => window.location.href = 'index.html', 1200);
             } else {
                 msg.style.color = "red";
-                msg.textContent = res.message || "E-mail ou senha inválidos.";
+                msg.textContent = res.error || res.message || "E-mail ou senha inválidos.";
             }
         });
     }
@@ -57,4 +58,4 @@
             }
         });
     }
-});*/
+});
