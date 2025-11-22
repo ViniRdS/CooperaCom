@@ -1,15 +1,5 @@
-// Detecta automaticamente se está no localhost
-const isLocalhost =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1" ||
-    window.location.hostname.includes("192.168.") ||  // caso use rede local
-    window.location.hostname.includes("10.") ||       // outra faixa comum de LAN
-    window.location.hostname.includes("0.")  ;        // compatibilidade extra
-
 // Define automaticamente o backend correto
-const apiBaseURL = isLocalhost
-    ? "http://localhost:8001/api"        // 🚀 desenvolvimento (local)
-    : "https://seudominio.com/api";      // 🌐 produção (online)
+const apiBaseURL = "http://localhost:3000/api";
 
 // Apenas para debug
 console.log("API em uso:", apiBaseURL);
