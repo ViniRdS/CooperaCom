@@ -16,9 +16,9 @@ async function loadProjectDetail() {
         // 🔹 Preencher dados do projeto
         // ---------------------------------------
         document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-creator").textContent = project.creatorName || "Não informado";
-        document.getElementById("project-category").textContent = project.category || "Não informado";
-        document.getElementById("project-slots").textContent = `${project.volunteers?.length || 0} / ${project.maxVolunteers}`;
+        document.getElementById("project-creator").textContent = project.creator_name || "Não informado";
+        document.getElementById("project-category").textContent = project.category_name || "Não informado";
+        document.getElementById("project-slots").textContent = `${project.current_volunteer} / ${project.number_volunteer}`;
         document.getElementById("project-description").textContent = project.description;
         document.getElementById("project-date").textContent =
             new Date(project.createdAt).toLocaleDateString("pt-BR");
@@ -27,18 +27,13 @@ async function loadProjectDetail() {
         // 🔹 Avisos do projeto
         // ---------------------------------------
         const noticeContainer = document.getElementById("project-notices");
-        const noticeList = document.getElementById("notice-list");
+        const noticeText = document.getElementById("notice-text");
 
-        if (project.notice_board?.length > 0) {
-            noticeList.innerHTML = "";
-            project.notice_board.forEach(n => {
-                const li = document.createElement("li");
-                li.textContent = n;
-                noticeList.appendChild(li);
-            });
+        if (project.notice_board && project.notice_board.trim() !== "") {
+            noticeText.innerHTML = project.notice_board.replace(/\n/g, "<br>");
             noticeContainer.style.display = "block";
         } else {
-            noticeContainer.style.display = "none";
+            noticeText.textContent = "Avisos ficarão aqui";
         }
 
         // ---------------------------------------

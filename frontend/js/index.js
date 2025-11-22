@@ -27,12 +27,12 @@ async function loadProjects() {
 
             card.innerHTML = `
                 <h3>${project.title}</h3>
-                <p>${project.category} • Criado por <strong>${project.creator}</strong></p>
+                <p>${project.category_name} • Criado por <strong>${project.creator_name}</strong></p>
                 <p>${project.description}</p>
                 <div class="progress-bar">
                     <div class="progress" style="width: ${project.progress}%"></div>
                 </div>
-                <small>${project.joinedVolunteers} / ${project.totalVolunteers} voluntários</small>
+                <small>${project.current_volunteer} / ${project.number_volunteer} voluntários</small>
                 <a href="project-detail.html?id=${project.id}">Ver mais</a>
             `;
 

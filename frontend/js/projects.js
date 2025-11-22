@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 card.classList.add('project-card');
                 card.innerHTML = `
                     <h3>${p.title}</h3>
-                    <p>${p.category} • Criado por <strong>${p.creator}</strong></p>
+                    <p>${p.category_name} • Criado por <strong>${p.creator_name}</strong></p>
                     <div class="progress-bar">
                         <div class="progress" style="width: ${p.volunteersPercent}%;"></div>
                     </div>
-                    <small>${p.currentVolunteers} / ${p.totalVolunteers} voluntários</small>
+                    <small>${p.current_volunteer} / ${p.number_volunteer} voluntários</small>
                     <a href="project-detail.html?id=${p.id}">Ver mais</a>
                 `;
                 grid.appendChild(card);
