@@ -30,4 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Carregar Project Card (se existir)
     loadComponent("#project-card-container", "components/project-card.html");
+
+    function updateProjectCards() {
+    document.querySelectorAll(".project-card").forEach(card => {
+        const slotsText = card.querySelector(".project-slots span").innerText; 
+        const [current, max] = slotsText.split("/").map(n => parseInt(n.trim()));
+
+        const bar = card.querySelector(".progress-bar");
+        const percent = (current / max) * 100;
+
+        bar.style.width = percent + "%";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadComponent("#project-card-container", "components/project-card.html")
+        .then(() => {
+            updateProjectCards();
+        });
+});
+
 });

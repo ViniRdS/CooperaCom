@@ -1,6 +1,6 @@
 /* ---------------------------------------------
    RESET BÁSICO
-----------------------------------------------*/
+---------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +30,7 @@ button {
 
 /* ---------------------------------------------
    VARIÁVEIS DO TEMA
-----------------------------------------------*/
+---------------------------------------------*/
 :root {
     --primary-color: #175b43;
     --secondary-color: #f8f9fa;
@@ -40,29 +40,24 @@ button {
 
 /* ---------------------------------------------
    CONTAINERS
-----------------------------------------------*/
-
-
+---------------------------------------------*/
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
 }
 
-/* Main geral */
+/*mais-geral*/
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-
-    /* 🔥 CORREÇÃO IMPORTANTE AQUI 🔥 */
-    padding-top: 120px !important;  
-    /* (valor ideal para o seu navbar fixo) */
+    padding-top: 120px !important; /* navbar fixa */
 }
 
 /* ---------------------------------------------
    BOTÕES
-----------------------------------------------*/
+---------------------------------------------*/
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -104,17 +99,38 @@ main {
     background-color: #124c37;
 }
 
+/* Botão "Ver mais projetos" */
+.see-more-btn {
+    margin: 20px auto 0;
+    display: block;
+    background: none;
+    border: none;
+    color: #175b43;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: text-decoration 0.2s ease;
+}
+
+.see-more-btn:hover {
+    text-decoration: underline;
+}
+
 /* ---------------------------------------------
-   CARDS
-----------------------------------------------*/
+   CARDS / PROJECT-CARD
+---------------------------------------------*/
 .card,
 .project-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 1rem;
     margin: 0.5rem;
     transition: transform 0.2s;
+    height: 320px; /* altura fixa aproximada */
 }
 
 .card:hover,
@@ -122,16 +138,87 @@ main {
     transform: translateY(-3px);
 }
 
-/* GRID */
+/* Título do card (igual ao index) */
+.project-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #222;
+}
+
+/* Descrição curta com reticências (2 linhas) */
+.project-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    display: box; /* fallback */
+    box-orient: vertical;
+
+    line-clamp: 2; /* padrão futuro */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Link "Ver mais" dentro do card */
+.link-more {
+    color: #175b43;
+    text-decoration: none; /* sem sublinhado padrão */
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+    transition: text-decoration 0.2s ease;
+}
+
+.link-more:hover {
+    text-decoration: underline;
+}
+
+/* Barra de progresso */
+.project-progress {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
+.project-progress-filled {
+    height: 100%;
+    background: #f4a261;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.4s ease-in-out;
+}
+
+/* GRID de cards */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+}
+
+/* GRID responsivo */
+@media (max-width: 992px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ---------------------------------------------
    FORMULÁRIOS
-----------------------------------------------*/
+---------------------------------------------*/
 input, textarea, select {
     width: 100%;
     padding: 10px;
@@ -151,8 +238,8 @@ h1, h2, h3, h4 {
 }
 
 /* ---------------------------------------------
-   NAVBAR — FIXO E 100% LARGURA
-----------------------------------------------*/
+   NAVBAR — FIXO
+---------------------------------------------*/
 header {
     width: 100%;
     position: fixed;
@@ -162,7 +249,7 @@ header {
     background: white;
 }
 
-/* Container interno */
+/*conteiner-interno*/
 .top-header {
     width: 100%;
     border-bottom: 1px solid #ddd;
@@ -177,7 +264,7 @@ header {
     justify-content: space-between;
 }
 
-/* Logo */
+/*logo*/
 .logo {
     display: flex;
     align-items: center;
@@ -188,7 +275,7 @@ header {
 .logo-green { color: #175b43; }
 .logo-orange { color: #f4a261; }
 
-/* Menu */
+/*menu*/
 .menu a {
     color: #555;
     margin-left: 24px;
@@ -203,8 +290,8 @@ header {
 }
 
 /* ---------------------------------------------
-   DROPDOWN DO NAVBAR
-----------------------------------------------*/
+   DROPDOWN
+---------------------------------------------*/
 .dropdown .dropbtn {
     cursor: pointer;
 }
@@ -253,7 +340,7 @@ header {
 
 /* ---------------------------------------------
    RODAPÉ
-----------------------------------------------*/
+---------------------------------------------*/
 footer {
     margin-top: 10px;
     background-color: #555;

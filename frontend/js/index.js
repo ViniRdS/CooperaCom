@@ -7,33 +7,53 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadProjects() {
     const projectsGrid = document.querySelector('.projects-grid');
 
-    // Limpa o conteúdo atual
-    projectsGrid.innerHTML = '';
+    projectsGrid.innerHTML = '<p>Carregando...</p>';
 
     try {
-        // Chama a API
-        const projects = await api.getProjects();
-
-        // Se não houver projetos
+        let projects = await api.getProjects();
+        
         if (!projects || projects.length === 0) {
             projectsGrid.innerHTML = '<p>Nenhum projeto encontrado.</p>';
             return;
         }
 
-        // Cria cards dinamicamente
+        //PEGAR SOMENTE OS 3 ÚLTIMOS
+        projects = projects.slice(-3).reverse();
+
+        projectsGrid.innerHTML = '';
+
         projects.forEach(project => {
+            const current = project.current_volunteer || 0;
+            const max = project.number_volunteer || 1;
+            const percent = Math.min((current / max) * 100, 100);
+
             const card = document.createElement('div');
             card.classList.add('project-card');
 
             card.innerHTML = `
-                <h3>${project.title}</h3>
-                <p>${project.category_name} • Criado por <strong>${project.creator_name}</strong></p>
-                <p>${project.description}</p>
-                <div class="progress-bar">
-                    <div class="progress" style="width: ${project.progress}%"></div>
+                <h3 class="project-title">${project.title}</h3>
+
+                <p class="project-description">
+                    ${project.description}
+                </p>
+
+                <p class="project-category">
+                    Categoria: <strong>${project.category_name}</strong>
+                </p>
+
+                <p class="project-creator">
+                    Criador: <strong>${project.creator_name}</strong>
+                </p>
+
+                <div class="project-progress">
+                    <div class="project-progress-filled" style="width: ${percent}%"></div>
                 </div>
-                <small>${project.current_volunteer} / ${project.number_volunteer} voluntários</small>
-                <a href="project-detail.html?id=${project.id}">Ver mais</a>
+
+                <p class="project-slots">${current} / ${max} voluntários</p>
+
+                <a href="project-detail.html?id=${project.id}" class="link-more">
+                    Ver mais
+                </a>
             `;
 
             projectsGrid.appendChild(card);
@@ -41,6 +61,6 @@ async function loadProjects() {
 
     } catch (err) {
         console.error('Erro ao carregar projetos:', err);
-        projectsGrid.innerHTML = '<p>Erro ao carregar projetos. Tente novamente mais tarde.</p>';
+        projectsGrid.innerHTML = '<p>Erro ao carregar projetos.</p>';
     }
 }
