@@ -1,0 +1,265 @@
+/* ---------------------------------------------
+   RESET BÁSICO
+----------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f7f8fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ---------------------------------------------
+   VARIÁVEIS DO TEMA
+----------------------------------------------*/
+:root {
+    --primary-color: #175b43;
+    --secondary-color: #f8f9fa;
+    --accent-color: #6c757d;
+    --font-family: 'Arial', sans-serif;
+}
+
+/* ---------------------------------------------
+   CONTAINERS
+----------------------------------------------*/
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Main geral */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+
+    /* 🔥 CORREÇÃO IMPORTANTE AQUI 🔥 */
+    padding-top: 120px !important;  
+    /* (valor ideal para o seu navbar fixo) */
+}
+
+/* ---------------------------------------------
+   BOTÕES
+----------------------------------------------*/
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #145037;
+}
+
+.btn-secondary {
+    background-color: #175b43;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #124c37;
+}
+
+.btn-danger {
+    background-color: #175b43;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+    background-color: #124c37;
+}
+
+/* ---------------------------------------------
+   CARDS
+----------------------------------------------*/
+.card,
+.project-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+    margin: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.card:hover,
+.project-card:hover {
+    transform: translateY(-3px);
+}
+
+/* GRID */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* ---------------------------------------------
+   FORMULÁRIOS
+----------------------------------------------*/
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* TITULOS */
+h1, h2, h3, h4 {
+    margin-bottom: 15px;
+    color: #222;
+}
+
+/* ---------------------------------------------
+   NAVBAR — FIXO E 100% LARGURA
+----------------------------------------------*/
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: white;
+}
+
+/* Container interno */
+.top-header {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 16px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.logo-green { color: #175b43; }
+.logo-orange { color: #f4a261; }
+
+/* Menu */
+.menu a {
+    color: #555;
+    margin-left: 24px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.menu a:hover {
+    color: #f4a261;
+}
+
+/* ---------------------------------------------
+   DROPDOWN DO NAVBAR
+----------------------------------------------*/
+.dropdown .dropbtn {
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 0.3rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 150px;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.dropdown-content li a {
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ---------------------------------------------
+   RODAPÉ
+----------------------------------------------*/
+footer {
+    margin-top: 10px;
+    background-color: #555;
+    padding: 6px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 0.9rem;
+}

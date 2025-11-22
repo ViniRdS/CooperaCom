@@ -1,0 +1,63 @@
+/* Ajusta título para não ficar atrás do navbar */
+.pt-navbar {
+  margin-top: 120px ;
+}
+
+/* Form container (mesmo visual de antes) */
+.form-container {
+  max-width: 600px;
+  background: white;
+  padding: 40px;
+  margin-top: 0px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.page-title {
+  color: #175b43;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 100px; /* ajusta conforme a altura do navbar */
+  text-align: center;
+}
+
+/* Inputs */
+.contact-input {
+  padding: 12px ;
+  border: 1px solid #ccc ;
+  border-radius: 6px ;
+  font-size: 1rem ;
+}
+
+.contact-input:focus {
+  border-color: #175b43 ;
+  box-shadow: 0 0 0 0.2rem rgba(23, 91, 67, 0.25) ;
+}
+
+/* Textarea */
+.contact-textarea {
+  padding: 12px ;
+  border: 1px solid #ccc ;
+  border-radius: 6px ;
+  font-size: 1rem ;
+  min-height: 120px ;
+  resize: none ;
+}
+
+.contact-textarea:focus {
+  border-color: #175b43 ;
+  box-shadow: 0 0 0 0.2rem rgba(23, 91, 67, 0.25) ;
+}
+
+/* Botão */
+.custom-submit-btn {
+  background-color: #175b43 ;
+  font-size: 1.1rem ;
+  padding: 12px ;
+  font-weight: 600 ;
+  border-radius: 6px ;
+}
+
+.custom-submit-btn:hover {
+  background-color: #134032 ;
+}

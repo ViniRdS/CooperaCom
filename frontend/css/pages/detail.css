@@ -1,0 +1,63 @@
+.project-detail-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
+
+.column {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex: 1 1 300px;
+    min-height: 400px;
+}
+
+.project-info {
+    flex: 2;
+}
+
+.project-notices {
+    flex: 1;
+}
+
+.project-chat {
+    flex: 1;
+}
+
+#join-leave-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1rem;
+}
+
+.project-detail-container {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem;
+}
+
+.project-column {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.project-column.details {
+    flex: 2;
+    min-height: 500px;
+}
+
+.project-column.notice {
+    flex: 1;
+    min-height: 500px;
+}
+
+.project-column.chat {
+    flex: 1;
+    min-height: 500px;
+}

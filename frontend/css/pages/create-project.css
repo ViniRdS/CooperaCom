@@ -1,0 +1,54 @@
+/* Ajusta o body para o navbar fixo */
+body {
+  padding-top: 70px; /* altura do navbar */
+  background-color: #f7f8fa;
+}
+
+/* Título */
+.page-title {
+  color: #175b43;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Caixa de fundo por trás dos inputs */
+.form-background {
+  width: 100%;
+  max-width: 600px;  /* tamanho igual ao original */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Inputs e textarea menores horizontalmente */
+.small-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  height: auto;
+}
+
+/* Descrição */
+#description {
+  min-height: 120px;
+  resize: none;
+}
+
+/* Botão de enviar */
+.create-btn, .btn-success {
+  background-color: #175b43;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.create-btn:hover, .btn-success:hover {
+  background-color: #134032;
+}

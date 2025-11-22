@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/project-detail.css">
+  <script src="js/components.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/project-detail.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <title>Detalhes do Projeto | CooperaCom</title>
+</head>
+<body>
+
+<header id="navbar"></header>
+
+<main class="project-detail-container">
+
+  <!-- Coluna 1 - Detalhes -->
+  <section class="project-info">
+    <h1 id="project-title">Carregando...</h1>
+
+    <p><strong>Criador:</strong> <span id="project-creator">...</span></p>
+    <p><strong>Categoria:</strong> <span id="project-category">...</span></p>
+    <p><strong>Data:</strong> <span id="project-date">...</span></p>
+    <p><strong>Vagas:</strong> <span id="project-slots">...</span></p>
+
+    <h2>Descrição</h2>
+    <p id="project-description">Carregando descrição...</p>
+
+    <button id="join-leave-btn" class="action-btn">Carregando...</button>
+  </section>
+
+  <!-- Coluna 2 - Avisos -->
+  <section class="notice-section" id="project-notices">
+    <h2>Quadro de Avisos</h2>
+    <ul id="notice-list"></ul>
+  </section>
+
+  <!-- Coluna 3 - Chat -->
+  <section class="chat-section">
+    <h2>Chat (em breve)</h2>
+    <div class="chat-box">
+      <div class="chat-messages">
+        <p><strong>Carregando chat...</strong></p>
+      </div>
+      <div class="chat-input">
+        <input type="text" placeholder="Digite sua mensagem..." disabled>
+        <button disabled>Enviar</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer></footer>
+
+</body>
+</html>

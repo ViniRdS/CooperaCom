@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/index.css">  
+  <script src="js/components.js" defer></script>
+  <script src="js/api.js"></script>
+  <script src="js/index.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <title>CooperaCom - Home</title>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header id="navbar"></header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <h1>Coopera<span>Com</span></h1>
+    <p class="subtitle">
+      Participe de projetos locais oferecendo sua ajuda prática, sem foco em dinheiro.  
+      <strong>Coopere</strong> com outras pessoas e juntos transformem suas  
+      <span style="color:#f4a261; font-weight:600;">Comunidades</span>.
+    </p>
+
+    <div class="button-group">
+      <button class="btn-primary" onclick="window.location.href='projects.html'">Explorar Projetos</button>
+      <button class="btn-secondary" onclick="window.location.href='create-project.html'">Criar Projetos</button>
+    </div>
+
+    <!-- Últimos projetos -->
+    <section class="projects-section">
+      <h2>Últimos Projetos</h2>
+      <div class="projects-grid">
+        <!-- Cards de fallback estáticos, serão substituídos pelo JS -->
+        <div class="project-card">
+          <h3>Carregando projetos...</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+</body>
+</html>

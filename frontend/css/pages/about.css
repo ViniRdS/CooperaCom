@@ -1,0 +1,54 @@
+/* Cores dos títulos */
+.titulo-principal {
+  text-align: left;
+  color: #175b43;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.titulo-laranja {
+  color: #f4a261;
+}
+
+/* Caixa de texto */
+.about-text {
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Palavras destacadas */
+.coopere {
+  color: #166047;
+  font-weight: bold;
+}
+.com {
+  color: #f4a261;
+  font-weight: bold;
+}
+
+/* Cards dos participantes */
+.team-member {
+  width: 100%;
+  min-width: 220px;
+  max-width: 250px;
+  margin: 0 auto;
+  transition: transform 0.2s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-4px);
+}
+
+.team-member h3 {
+  color: #175b43;
+}
+
+.team-member p {
+  color: #555;
+}
+
+/* Garante alinhamento igualado */
+.row {
+  justify-content: center !important;
+}

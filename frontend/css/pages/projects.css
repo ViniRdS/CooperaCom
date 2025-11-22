@@ -1,0 +1,41 @@
+/* ----- TÍTULO VERDE ORIGINAL ----- */
+main h2 {
+    color: #175b43 !important;
+    font-size: 2rem;
+    margin-bottom: 24px;
+}
+
+/* ----- FILTROS SEM COR ALTERADA PELO BOOTSTRAP ----- */
+.filters input.form-control,
+.filters select.form-select {
+    background-color: white !important;
+    border: 1px solid #ccc !important;
+    color: #333 !important;
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    box-shadow: none !important;
+}
+
+/* Foco do campo — cor verde original */
+.filters input.form-control:focus,
+.filters select.form-select:focus {
+    border-color: #175b43 !important;
+    box-shadow: 0 0 0 0.15rem rgba(23, 91, 67, 0.25) !important;
+}
+
+/* ----- BOTÃO "VER MAIS PROJETOS" ARREDONDADO (ESTILO ORIGINAL) ----- */
+.btn-more {
+    background-color: #175b43 !important;
+    color: white !important;
+    border-radius: 6px !important; /* antes estava quadrado */
+    padding: 12px 28px !important;
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+    margin: 40px auto 0;
+    border: none !important;
+}
+
+.btn-more:hover {
+    background-color: #134032 !important;
+}

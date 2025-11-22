@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/pages/profile.css">
+   <script src="js/components.js" defer></script>
+   <!--<script src="js/api.js" defer></script>-->
+   <script src="js/profile.js" defer></script>
+   <!--<script src="js/main.js" defer></script>-->
+   <title>Perfil | CooperaCom</title>
+</head>
+<body>
+
+<header id="navbar"></header>
+
+<main class="profile-container">
+
+    <h1 class="profile-title">Perfil</h1>
+
+ <section class="profile-header">
+
+  <div class="profile-left">
+    <div class="profile-avatar">
+      <img id="user-avatar" src="img/default-avatar.png" alt="Foto do usuário">
+    </div>
+    <h2 id="user-name">Carregando...</h2>
+    <p id="user-bio">...</p>
+  </div>
+
+  <div class="edit-container">                     
+    <a href="settings.html" class="edit-settings" title="Editar perfil">
+      <img src="img/edit.png" alt="Editar perfil" />
+    </a>
+  </div>
+
+  <div class="profile-right">
+    <h3>Projetos Criados (<span id="created-count">0</span>)</h3>
+
+    <div id="created-projects" class="created-projects-list"></div>
+
+    <a href="my-projects.html" class="see-more">Ver mais projetos</a>
+  </div>
+ </section>
+
+
+    <section class="profile-volunteer">
+        <h3>Voluntariado em (<span id="vol-count">0</span>)</h3>
+
+        <div class="vol-grid" id="volunteer-projects"></div>
+
+        <a href="voluntario-projects.html" class="see-more">Ver mais projetos</a>
+    </section>
+
+</main>
+
+<footer></footer>
+
+</body>
+</html>
