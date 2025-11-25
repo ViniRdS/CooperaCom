@@ -1,9 +1,3 @@
-/* Ajusta o body para o navbar fixo */
-body {
-  padding-top: 70px; /* altura do navbar */
-  background-color: #f7f8fa;
-}
-
 /* Título */
 .page-title {
   color: #175b43;

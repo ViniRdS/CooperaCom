@@ -12,6 +12,9 @@ body {
     background-color: #f7f8fa;
     color: #333;
     line-height: 1.6;
+
+    /* FIX REAL DO NAVBAR */
+    padding-top: 80px; /* navbar tem aproximadamente 80px */
 }
 
 a {
@@ -35,7 +38,7 @@ button {
     --primary-color: #175b43;
     --secondary-color: #f8f9fa;
     --accent-color: #6c757d;
-    --font-family: 'Arial', sans-serif;
+    --highlight-color: #f4a261;
 }
 
 /* ---------------------------------------------
@@ -47,12 +50,10 @@ button {
     padding: 1rem;
 }
 
-/*mais-geral*/
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    padding-top: 120px !important; /* navbar fixa */
 }
 
 /* ---------------------------------------------
@@ -64,7 +65,7 @@ main {
     border-radius: 6px;
     border: none;
     font-size: 1rem;
-    transition: background 0.3s;
+    transition: 0.3s;
 }
 
 .btn-primary {
@@ -76,25 +77,13 @@ main {
     background-color: #145037;
 }
 
-.btn-secondary {
-    background-color: #175b43;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #124c37;
-}
-
+.btn-secondary,
 .btn-danger {
-    background-color: #175b43;
+    background-color: var(--primary-color);
     color: #fff;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
+.btn-secondary:hover,
 .btn-danger:hover {
     background-color: #124c37;
 }
@@ -105,11 +94,10 @@ main {
     display: block;
     background: none;
     border: none;
-    color: #175b43;
+    color: var(--primary-color);
     font-size: 1rem;
-    text-decoration: none;
     cursor: pointer;
-    transition: text-decoration 0.2s ease;
+    transition: 0.2s;
 }
 
 .see-more-btn:hover {
@@ -117,28 +105,24 @@ main {
 }
 
 /* ---------------------------------------------
-   CARDS / PROJECT-CARD
+   PROJECT CARDS
 ---------------------------------------------*/
-.card,
 .project-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #fff;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 1rem;
-    margin: 0.5rem;
-    transition: transform 0.2s;
-    height: 320px; /* altura fixa aproximada */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: 0.2s;
+    height: 320px;
 }
 
-.card:hover,
 .project-card:hover {
     transform: translateY(-3px);
 }
 
-/* Título do card (igual ao index) */
 .project-title {
     font-size: 1.1rem;
     font-weight: bold;
@@ -146,7 +130,6 @@ main {
     color: #222;
 }
 
-/* Descrição curta com reticências (2 linhas) */
 .project-description {
     font-size: 0.9rem;
     color: #555;
@@ -156,30 +139,23 @@ main {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 
-    display: box; /* fallback */
-    box-orient: vertical;
-
-    line-clamp: 2; /* padrão futuro */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Link "Ver mais" dentro do card */
 .link-more {
-    color: #175b43;
-    text-decoration: none; /* sem sublinhado padrão */
+    color: var(--primary-color);
     font-weight: 500;
     cursor: pointer;
     display: inline-block;
     margin-top: 10px;
-    transition: text-decoration 0.2s ease;
+    transition: 0.2s;
 }
 
 .link-more:hover {
     text-decoration: underline;
 }
 
-/* Barra de progresso */
 .project-progress {
     width: 100%;
     height: 8px;
@@ -190,20 +166,18 @@ main {
 
 .project-progress-filled {
     height: 100%;
-    background: #f4a261;
+    background: var(--highlight-color);
     border-radius: 10px;
     width: 0%;
     transition: width 0.4s ease-in-out;
 }
 
-/* GRID de cards */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-/* GRID responsivo */
 @media (max-width: 992px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -231,15 +205,15 @@ textarea {
     resize: vertical;
 }
 
-/* TITULOS */
 h1, h2, h3, h4 {
     margin-bottom: 15px;
     color: #222;
 }
 
 /* ---------------------------------------------
-   NAVBAR — FIXO
+   NAVBAR
 ---------------------------------------------*/
+
 header {
     width: 100%;
     position: fixed;
@@ -247,13 +221,14 @@ header {
     left: 0;
     z-index: 9999;
     background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    min-height: 80px; /* evita salto visual antes do JS carregar */
 }
 
-/*conteiner-interno*/
 .top-header {
     width: 100%;
+    padding: 14px 16px;
     border-bottom: 1px solid #ddd;
-    padding: 8px 16px;
 }
 
 .header-content {
@@ -264,60 +239,116 @@ header {
     justify-content: space-between;
 }
 
-/*logo*/
+/* Logo */
 .logo {
     display: flex;
     align-items: center;
-    font-weight: 700;
+    font-weight: 300;
     font-size: 1.3rem;
 }
 
-.logo-green { color: #175b43; }
-.logo-orange { color: #f4a261; }
+.logo-green { color: var(--primary-color); }
+.logo-orange { color: var(--highlight-color); }
 
-/*menu*/
-.menu a {
-    color: #555;
-    margin-left: 24px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-}
-
-.menu a:hover {
-    color: #f4a261;
-}
-
-/* ---------------------------------------------
-   DROPDOWN
----------------------------------------------*/
-.dropdown .dropbtn {
-    cursor: pointer;
-}
-
+/* Menu */
 .nav-links {
     list-style: none;
     display: flex;
     align-items: center;
+    gap: 24px;
 }
 
-.nav-links li {
+.nav-links a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--highlight-color);
+}
+
+/* ===== AVATAR FIXO NO NAVBAR ===== */
+/* garante tamanho fixo e impede shrink/grow */
+.nav-links .avatar,
+.user-btn .avatar,
+.dropdown .avatar {
+  width: 36px;              /* tamanho desejado — ajuste se quiser maior/menor */
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  max-width: 36px;
+  max-height: 36px;
+
+  border-radius: 50%;
+  object-fit: cover;        /* recorta centralizado sem distorcer */
+  display: inline-block;
+
+  /* evita que o flex container faça a imagem encolher/esticar */
+  flex: 0 0 36px;
+}
+
+/* garante que o botão do usuário (dropbtn) não quebre linhas */
+.user-btn,
+.dropdown .dropbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap; /* mantém o nome e o ícone na mesma linha */
+}
+
+/* Se ainda houver conflito por CSS externo (bootstrap etc.), usar !important como último recurso */
+.nav-links .avatar.fixed,
+.user-btn .avatar.fixed {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  flex: 0 0 36px !important;
+  object-fit: cover !important;
+}
+
+/* ---------------------------------------------
+   DROPDOWN (USUÁRIO)
+---------------------------------------------*/
+.dropdown {
     position: relative;
 }
 
-.nav-links .avatar {
-    width: 30px;
-    height: 30px;
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    color: #333;
+}
+
+.user-btn .avatar {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    margin-right: 0.3rem;
+    object-fit: cover;
+}
+
+.user-btn .username {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.dropdown .dropbtn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     right: 0;
-    background-color: #fff;
+    top: 110%;
+    background: #fff;
     min-width: 150px;
     border-radius: 5px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -339,12 +370,29 @@ header {
 }
 
 /* ---------------------------------------------
+   IMAGENS PADRÃO DE SEÇÕES
+---------------------------------------------*/
+.section-img {
+    max-width: 350px;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .section-img {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+}
+
+/* ---------------------------------------------
    RODAPÉ
 ---------------------------------------------*/
 footer {
-    margin-top: 10px;
+    margin-top: 30px;
     background-color: #555;
-    padding: 6px;
+    padding: 10px;
     width: 100%;
     text-align: center;
     color: #fff;
