@@ -27,7 +27,8 @@ main {
 
 /* Chat embaixo ocupando largura total */
 .full-width {
-  grid-column: 1 / 3; /* Ocupa as duas colunas */
+
+  grid-column: 1 / 3;
 }
 
 section {
@@ -76,35 +77,25 @@ p {
   background-color: #134032;
 }
 
-/* Avisos */
-.notice-box {
-  background-color: #fff6e5;
-  border: 1px solid #f4a261;
-  border-radius: 8px;
-  padding: 16px;
-  color: #7a4a00;
-}
-
-/* Chat - NOVA VERSÃO */
+/* Chat */
 .chat-box {
   display: flex;
   flex-direction: column;
-  height: 450px; /* mais alto */
+  height: 450px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 12px;
   background-color: #fafafa;
   width: 100%; /* mais largo */
 }
-
-/* mensagens com scroll */
+ 
 .chat-messages {
   flex: 1;
   overflow-y: auto; /* scroll vertical */
   margin-bottom: 12px;
   padding-right: 6px;
   scroll-behavior: smooth;
-  max-height: 380px; /* impede de crescer */
+  max-height: 380px;
 }
 
 .chat-input {
@@ -112,8 +103,7 @@ p {
   gap: 8px;
   align-items: center;
 }
-
-/* caixa de texto maior */
+ 
 .chat-input input {
   flex: 1;
   padding: 12px;
@@ -122,8 +112,7 @@ p {
   border-radius: 6px;
   font-size: 1rem;
 }
-
-/* botão menor */
+ 
 .chat-input button {
   width: 100px;
   height: 48px;
@@ -133,66 +122,19 @@ p {
   font-weight: 600;
 }
 
-/* Formulário de cadastro */
-.register-container {
-  background: white;
-  padding: 24px 32px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
-  margin-top: 48px;
-  width: 340px;
-}
-
-.register-container h2 {
-  font-weight: 700;
-  margin-bottom: 16px;
-  text-align: center;
-  color: #175b43;
-}
-
-.register-container input[type="text"],
-.register-container input[type="email"],
-.register-container input[type="password"] {
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.register-container input::placeholder {
-  color: #888;
-  font-weight: 500;
-}
-
-.register-container .login-link {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: #2f4f4f;
-}
-
-.register-container .login-link a {
-  color: #f4a261;
-  text-decoration: none;
+/* Linha info projeto */
+.info-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #444;
+  margin: 10px 0 20px;
   font-weight: 600;
 }
 
-.register-container .login-link a:hover {
-  text-decoration: underline;
-}
-
-.register-container .business-link {
-  text-align: center;
-  margin-top: 6px;
-  font-size: 0.85rem;
-  color: #333;
-}
-
-.register-container .business-link a {
+.info-line span {
   color: #175b43;
-  text-decoration: none;
+    text-decoration: none;
   font-weight: 600;
 }
 
@@ -207,51 +149,7 @@ p {
   }
 }
 
-/* Descrição com limite de altura + scroll */
-#project-description {
-  max-height: 7.5rem; /* cerca de 5 linhas */
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-/* ===== CAIXA DE DESCRIÇÃO ESTILO CARD ===== */
-.description-box {
-  background: white;
-  border-radius: 8px;
-  padding: 20px 24px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* Texto da descrição com scroll */
-.description-text {
-  max-height: 7.5rem; /* ~5 linhas */
-  overflow-y: auto;
-  padding-right: 6px;
-  line-height: 1.5;
-  color: #444;
-}
-
-/* autor e categoria */
-.description-meta {
-  margin-top: -8px;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.description-meta a {
-  color: #175b43;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.description-meta a:hover {
-  text-decoration: underline;
-}
-
-/* ===== BARRA DE PROGRESSO DINÂMICA ===== */
+/* Barra de progresso */
 .progress-container {
   width: 100%;
   margin-top: 6px;

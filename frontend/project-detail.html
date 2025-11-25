@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/pages/project-detail.css">
-
-  <!-- Scripts -->
+  
   <script src="js/api.js" defer></script>
   <script src="js/components.js" defer></script>
   <script src="js/project-detail.js" defer></script>
@@ -18,40 +18,56 @@
 
 <main class="project-detail-container">
 
-  <!-- Coluna 1 - Detalhes -->
+  <!-- ===========================
+        COLUNA 1 - DETALHES
+  ============================ -->
   <section class="project-info">
+
     <h1 id="project-title">Carregando...</h1>
- 
+
     <h2>Descrição</h2>
     <p id="project-description">Carregando descrição...</p>
 
+    <!-- Linha com categoria • criador • data -->
     <p class="info-line">
-        <span id="project-category">Categoria</span> • 
-        Criado por <span id="project-creator">Autor</span> • 
-        <span id="project-date">00/00/0000</span>
+      <span id="project-category">Categoria</span> • 
+      Criado por <span id="project-creator">Autor</span> • 
+      <span id="project-date">00/00/0000</span>
     </p>
 
+    <!-- Botão participar/sair -->
     <button id="join-leave-btn" class="action-btn">Carregando...</button>
 
+    <!-- Barra de voluntários -->
     <div class="progress-container">
       <div class="progress-bar">
-         <div class="progress-fill"></div>
+        <div class="progress-fill"></div>
       </div>
-       <div class="progress-label"></div>
+      <div class="progress-label"></div>
+    </div>
+ 
+  </section>
+
+  <!-- ===========================
+        COLUNA 2 - AVISOS
+  ============================ -->
+  <section class="notice-section" id="project-notices">
+
+    <div id="notice-header">
+      <h2>Quadro de Avisos</h2>
+
     </div>
 
-
-  </section>
-
-  <!-- Coluna 2 - Avisos -->
-  <section class="notice-section" id="project-notices">
-    <h2>Quadro de Avisos</h2>
     <p id="notice-text"></p>
+
   </section>
 
-  <!-- CHAT AGORA OCUPA A LINHA INTEIRA -->
+  <!-- ===========================
+        CHAT (OCUPA LINHA INTEIRA)
+  ============================ -->
   <section class="chat-section full-width">
     <h2>Chat</h2>
+
     <div class="chat-box">
       <div class="chat-messages" id="chat-messages">
         <p><strong>Carregando chat...</strong></p>

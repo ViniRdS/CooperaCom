@@ -8,36 +8,27 @@ async function loadProjectDetail() {
         const response = await api.getProjectById(id);
         const project = response.data || response.project || response;
 
-        // --- TÍTULO E DESCRIÇÃO ---
+                // --- TÍTULO E DESCRIÇÃO ---
         document.getElementById("project-title").textContent = project.title;
         document.getElementById("project-description").textContent = project.description;
-
-        // --- LINHA HORIZONTAL: categoria • criador • data ---
-        document.getElementById("project-creator").textContent =
-            project.creator_name || "Não informado";
-
-        document.getElementById("project-category").textContent =
-            project.category_name || "Não informado";
-
-        document.getElementById("project-date").textContent =
-            new Date(project.createdAt).toLocaleDateString("pt-BR");
-
-        // --- BARRA DE VOLUNTÁRIOS (DINÂMICA) ---
+        document.getElementById("project-creator").textContent = project.creator_name || "Não informado";
+        document.getElementById("project-category").textContent = project.category_name || "Não informado";
+        document.getElementById("project-date").textContent = new Date(project.createdAt).toLocaleDateString("pt-BR");
+ 
         atualizarBarra(project.current_volunteer, project.number_volunteer);
 
-        // --- AVISOS ---
-        const noticeText = document.getElementById("notice-text");
+        const noticeBox = document.getElementById("notice-text");
         if (project.notice_board?.trim()) {
-            noticeText.innerHTML = project.notice_board.replace(/\n/g, "<br>");
+            noticeBox.innerHTML = project.notice_board.replace(/\n/g, "<br>");
         } else {
-            noticeText.textContent = "Avisos ficarão aqui";
+            noticeBox.textContent = "Avisos ficarão aqui";
         }
 
         // --- BOTÃO PARTICIPAR / SAIR ---
         initJoinButton(project, id);
-
-        // --- CHAT ---
+        
         initChat(id);
+        initNoticeEditor(project, id);
 
     } catch (err) {
         console.error(err);
@@ -49,6 +40,7 @@ function getProjectIdFromURL() {
     return new URLSearchParams(window.location.search).get("id");
 }
 
+
 /* ---------------------- BARRA DE PROGRESSO ---------------------- */
 
 function atualizarBarra(voluntariosAtuais, voluntariosTotais) {
@@ -56,15 +48,11 @@ function atualizarBarra(voluntariosAtuais, voluntariosTotais) {
 
     const fill = document.querySelector(".progress-fill");
     const label = document.querySelector(".progress-label");
-
+  
     if (fill) fill.style.width = `${porcentagem}%`;
-
-    if (label)
-        label.textContent = `${voluntariosAtuais} / ${voluntariosTotais} voluntários`;
+    if (label) label.textContent = `${voluntariosAtuais} / ${voluntariosTotais} voluntários`;
 }
-
-/* ---------------------- BOTÃO PARTICIPAR / SAIR ---------------------- */
-
+ 
 async function initJoinButton(project, id) {
     const btn = document.getElementById("join-leave-btn");
     const token = localStorage.getItem("token");
