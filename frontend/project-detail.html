@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/pages/project-detail.css">
-  <script src="js/components.js" defer></script>
+
+  <!-- Scripts -->
   <script src="js/api.js" defer></script>
+  <script src="js/components.js" defer></script>
   <script src="js/project-detail.js" defer></script>
-  <script src="js/main.js" defer></script>
   <title>Detalhes do Projeto | CooperaCom</title>
 </head>
 <body>
@@ -20,16 +21,26 @@
   <!-- Coluna 1 - Detalhes -->
   <section class="project-info">
     <h1 id="project-title">Carregando...</h1>
-
-    <p><strong>Criador:</strong> <span id="project-creator">...</span></p>
-    <p><strong>Categoria:</strong> <span id="project-category">...</span></p>
-    <p><strong>Data:</strong> <span id="project-date">...</span></p>
-    <p><strong>Vagas:</strong> <span id="project-slots">...</span></p>
-
+ 
     <h2>Descrição</h2>
     <p id="project-description">Carregando descrição...</p>
 
+    <p class="info-line">
+        <span id="project-category">Categoria</span> • 
+        Criado por <span id="project-creator">Autor</span> • 
+        <span id="project-date">00/00/0000</span>
+    </p>
+
     <button id="join-leave-btn" class="action-btn">Carregando...</button>
+
+    <div class="progress-container">
+      <div class="progress-bar">
+         <div class="progress-fill"></div>
+      </div>
+       <div class="progress-label"></div>
+    </div>
+
+
   </section>
 
   <!-- Coluna 2 - Avisos -->
@@ -38,16 +49,17 @@
     <p id="notice-text"></p>
   </section>
 
-  <!-- Coluna 3 - Chat -->
-  <section class="chat-section">
-    <h2>Chat (em breve)</h2>
+  <!-- CHAT AGORA OCUPA A LINHA INTEIRA -->
+  <section class="chat-section full-width">
+    <h2>Chat</h2>
     <div class="chat-box">
-      <div class="chat-messages">
+      <div class="chat-messages" id="chat-messages">
         <p><strong>Carregando chat...</strong></p>
       </div>
+
       <div class="chat-input">
-        <input type="text" placeholder="Digite sua mensagem..." disabled>
-        <button disabled>Enviar</button>
+        <input id="chat-input" type="text" placeholder="Digite sua mensagem...">
+        <button id="chat-send-btn">Enviar</button>
       </div>
     </div>
   </section>
