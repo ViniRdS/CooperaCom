@@ -106,5 +106,13 @@ const api = {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }).then(res => res.json());
-    }
+    },
+
+    getProjectMessages: (projectId) => {
+        const token = localStorage.getItem('token');
+        return fetch(`${api.baseUrl}/messages/projects/${projectId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        }).then(res => res.json());
+    },
+
 };

@@ -27,7 +27,8 @@ async function loadProjectDetail() {
         // --- BOTÃO PARTICIPAR / SAIR ---
         initJoinButton(project, id);
         
-        initChat(id);
+        initChat(id, project);
+        
         initNoticeEditor(project, id);
 
     } catch (err) {
