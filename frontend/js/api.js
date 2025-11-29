@@ -1,25 +1,22 @@
-// Define automaticamente o backend correto
 const apiBaseURL = "http://localhost:3000/api";
 
-// Apenas para debug
 console.log("API em uso:", apiBaseURL);
 
-// API centralizada
 const api = {
     baseUrl: apiBaseURL,
 
     login: (email, password) => {
         return fetch(`${api.baseUrl}/auth/login`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email, password})
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
         }).then(res => res.json());
     },
 
     register: (data) => {
         return fetch(`${api.baseUrl}/register`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(res => res.json());
     },
@@ -51,7 +48,7 @@ const api = {
         const token = localStorage.getItem('token');
         return fetch(`${api.baseUrl}/projects/${id}/join`, {
             method: 'POST',
-            headers: {'Authorization': `Bearer ${token}`}
+            headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => res.json());
     },
 
@@ -59,51 +56,41 @@ const api = {
         const token = localStorage.getItem('token');
         return fetch(`${api.baseUrl}/projects/${id}/leave`, {
             method: 'POST',
-            headers: {'Authorization': `Bearer ${token}`}
+            headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => res.json());
     },
 
+    /* -----------------------------
+       getUserProfile — agora local
+       ----------------------------- */
     getUserProfile: () => {
-    const token = localStorage.getItem('token');
-    const userStorage = localStorage.getItem('user');
-
-    if (!token || !userStorage) {
-        return Promise.reject("Usuário não está logado");
-    }
-
-    const user = JSON.parse(userStorage);
-
-    return fetch(`${api.baseUrl}/users/${user.id}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-    }).then(res => res.json());
-},
-
-
+        const user = localStorage.getItem("user");
+        if (!user) {
+            return Promise.reject("Usuário não encontrado no localStorage");
+        }
+        return Promise.resolve(JSON.parse(user));
+    },
 
     updateProfile: (data) => {
-        const token = localStorage.getItem('token');
-        return fetch(`${api.baseUrl}/profile`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        }).then(res => res.json());
+        const user = JSON.parse(localStorage.getItem("user")) || {};
+        const updated = { ...user, ...data };
+
+        localStorage.setItem("user", JSON.stringify(updated));
+
+        return Promise.resolve({ success: true, user: updated });
     },
 
     deleteUser: () => {
-        const token = localStorage.getItem('token');
-        return fetch(`${api.baseUrl}/profile`, {
-            method: 'DELETE',
-            headers: {'Authorization': `Bearer ${token}`}
-        }).then(res => res.json());
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        return Promise.resolve({ success: true });
     },
 
     contactMessage: (data) => {
         return fetch(`${api.baseUrl}/contact`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }).then(res => res.json());
     },
@@ -114,5 +101,4 @@ const api = {
             headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => res.json());
     },
-
 };
