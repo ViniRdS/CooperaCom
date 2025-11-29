@@ -1,49 +1,86 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const form = document.getElementById('settings-form');
-    const deleteBtn = document.getElementById('delete-account');
+document.addEventListener("DOMContentLoaded", async () => {
+    const form = document.getElementById("settings-form");
+    const deleteBtn = document.getElementById("delete-account");
 
-    // Carregar dados atuais do usuário
-    try {
-        const user = await api.getUserProfile();
-        document.getElementById('name').value = user.name;
-        document.getElementById('bio').value = user.bio || '';
-    } catch (err) {
-        console.error(err);
-        alert('Erro ao carregar os dados do usuário.');
+    /* ======================================================
+       1. CARREGAR DADOS DO USUÁRIO DO LOCALSTORAGE
+    ====================================================== */
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+        alert("Sessão expirada. Faça login novamente.");
+        window.location.href = "login.html";
+        return;
     }
 
-    // Salvar alterações
-    form.addEventListener('submit', async (e) => {
+    let user = JSON.parse(storedUser);
+
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("bio").value = user.bio || "";
+
+    /* ======================================================
+       2. SALVAR ALTERAÇÕES
+    ====================================================== */
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const data = {
-            name: document.getElementById('name').value,
-            bio: document.getElementById('bio').value,
-            password: document.getElementById('password').value || undefined
+
+        // Campos básicos
+        const updateData = {
+            name: document.getElementById("name").value,
+            bio: document.getElementById("bio").value
         };
 
+        // SENHA — só envia se tiver algo digitado
+        const newPassword = document.getElementById("password").value.trim();
+        if (newPassword.length > 0) {
+            updateData.password = newPassword;
+        }
+
         try {
-            await api.updateProfile(data);
-            alert('Alterações salvas com sucesso!');
-            document.getElementById('password').value = ''; // limpa o campo de senha
+            const updatedUser = await api.updateProfile(updateData);
+
+            /* ======================================================
+               ATUALIZA LOCALSTORAGE PARA NAVBAR E PROFILE
+            ====================================================== */
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            /* ======================================================
+               ATUALIZA NAVBAR AO VIVO
+            ====================================================== */
+            if (window.setupNavbar) setupNavbar();
+
+            alert("Alterações salvas com sucesso!");
+
+            // limpa campo de senha
+            document.getElementById("password").value = "";
+
         } catch (err) {
-            console.error(err);
-            alert('Erro ao salvar alterações. Tente novamente.');
+            console.error("Erro ao atualizar perfil:", err);
+            alert("Erro ao salvar alterações. Tente novamente.");
         }
     });
 
-    // Excluir conta
-    deleteBtn.addEventListener('click', async () => {
-        const confirmDelete = confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível.');
+    /* ======================================================
+       3. EXCLUIR CONTA
+    ====================================================== */
+    deleteBtn.addEventListener("click", async () => {
+        const confirmDelete = confirm(
+            "Deseja realmente excluir sua conta? Esta ação é irreversível."
+        );
         if (!confirmDelete) return;
 
         try {
             await api.deleteUser();
-            localStorage.removeItem('token');
-            alert('Conta excluída com sucesso.');
-            window.location.href = 'index.html';
+
+            // Remover dados locais
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+
+            alert("Conta excluída com sucesso.");
+            window.location.href = "index.html";
+
         } catch (err) {
-            console.error(err);
-            alert('Erro ao excluir conta. Tente novamente.');
+            console.error("Erro ao excluir conta:", err);
+            alert("Erro ao excluir a conta. Tente novamente.");
         }
     });
 });
