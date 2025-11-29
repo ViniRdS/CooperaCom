@@ -101,4 +101,16 @@ const api = {
             headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => res.json());
     },
+
+    updateProject: (id, data) => {
+    const token = localStorage.getItem("token");
+    return fetch(`${api.baseUrl}/projects/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+    },
 };

@@ -2,11 +2,9 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
- 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/pages/project-detail.css">
-  
   <script src="js/api.js" defer></script>
   <script src="js/components.js" defer></script>
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
@@ -54,15 +52,14 @@
         COLUNA 2 - AVISOS
   ============================ -->
   <section class="notice-section" id="project-notices">
-
-    <div id="notice-header">
-      <h2>Quadro de Avisos</h2>
-
+    <div id="notice-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Quadro de Avisos</h2>
+        <button id="edit-notice-btn" class="edit-btn" style="display:none;">Editar</button>
     </div>
 
     <p id="notice-text"></p>
-
   </section>
+
 
   <!-- ===========================
         CHAT (OCUPA LINHA INTEIRA)

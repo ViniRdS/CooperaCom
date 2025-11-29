@@ -101,25 +101,35 @@ p {
 .chat-input {
   display: flex;
   gap: 8px;
-  align-items: center;
 }
- 
-.chat-input input {
-  flex: 1;
-  padding: 12px;
-  height: 48px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+
+.chat-input input,
+.chat-input button {
+  height: 48px;          /* mesma altura para input e botão */
+  border-radius: 6px;    /* mantém borda arredondada */
   font-size: 1rem;
 }
- 
+
+.chat-input input {
+  flex: 5;               /* ocupa o espaço restante */
+  padding: 12px;
+}
+
 .chat-input button {
-  width: 100px;
+  width: 100px;           /* largura fixa do botão */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;            /* remove padding extra que desalinhe */
+}
+
+.chat-input button {
   height: 48px;
+  width: 100px;
   padding: 0px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Linha info projeto */
@@ -189,4 +199,26 @@ p {
 
 .info-line span {
   color: #175b43;
+}
+
+.edit-btn {
+  color: #175b43;
+    background-color: #175b43;
+;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #175b43;
+}
+
+/* Scroll automático na descrição após ~5 linhas */
+#project-description {
+    max-height: 7.5em;   /* altura aproximada de 5 linhas */
+    overflow-y: auto;
+    padding-right: 6px;  /* espaço para o scroll */
 }
