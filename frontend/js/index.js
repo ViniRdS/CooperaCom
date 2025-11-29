@@ -11,17 +11,27 @@ async function loadProjects() {
 
     try {
         let projects = await api.getProjects();
-        
+
         if (!projects || projects.length === 0) {
             projectsGrid.innerHTML = '<p>Nenhum projeto encontrado.</p>';
             return;
         }
 
-        //PEGAR SOMENTE OS 3 ÚLTIMOS
-        projects = projects.slice(-3).reverse();
+        /* ======================================================
+           1. ORDENAR PELOS MAIS RECENTES (MAIOR ID PRIMEIRO)
+        ====================================================== */
+        projects.sort((a, b) => b.id - a.id);
+
+        /* ======================================================
+           2. PEGAR SÓ OS 3 MAIS RECENTES
+        ====================================================== */
+        projects = projects.slice(0, 3);
 
         projectsGrid.innerHTML = '';
 
+        /* ======================================================
+           3. MONTAR OS CARDS
+        ====================================================== */
         projects.forEach(project => {
             const current = project.current_volunteer || 0;
             const max = project.number_volunteer || 1;
