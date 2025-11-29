@@ -1,46 +1,14 @@
-.project-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform .2s ease;
+/* Apenas ajustes de layout e responsividade para o container de cards */
+#my-projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
-.project-card:hover {
-    transform: translateY(-4px);
+/* Botão de carregar mais */
+#loadMoreBtn {
+    transition: background-color 0.2s ease;
 }
-
-.project-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #175b43;
-}
-
-.project-meta {
-    font-size: 0.85rem;
-    color: #444;
-}
-
-.project-description {
-    font-size: 0.9rem;
-    color: #555;
-}
-
-.progress {
-    height: 8px;
-    border-radius: 10px;
-    margin-top: 8px;
-}
-
-.progress-bar {
-    background-color: #f4a261;
-}
-
-.view-more {
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: #175b43;
-}
-.view-more:hover {
-    text-decoration: underline;
+#loadMoreBtn:hover {
+    background-color: #e6952b;
 }

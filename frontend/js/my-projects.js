@@ -2,7 +2,6 @@ let currentPage = 1;
 const perPage = 6;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Usuário precisa estar logado
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "login.html";
@@ -10,82 +9,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     loadProjects();
-
-    document.getElementById("loadMoreBtn")
-        .addEventListener("click", loadProjects);
+    document.getElementById("loadMoreBtn").addEventListener("click", loadProjects);
 });
 
 function loadProjects() {
-    api.getProjects({
-        createdByUser: true,
-        page: currentPage,
-        limit: perPage
-    })
-    .then(response => {
-        // Compatível com qualquer formato da sua API
-        const projects = response.data || response.projects || response || [];
+    api.getProjects({ page: currentPage, limit: perPage })
+        .then(response => {
+            const projects = response.data || response.projects || response || [];
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+            const container = document.getElementById("my-projects-list");
 
-        const container = document.getElementById("my-projects-list");
+            // Filtra apenas os projetos criados pelo usuário
+            const myProjects = projects.filter(p => p.createdByUserId === user.id);
 
-        if (projects.length === 0 && currentPage === 1) {
-            container.innerHTML = `
-                <p class="text-center text-muted mt-4">
-                    Você ainda não criou nenhum projeto.
-                </p>
-            `;
-            document.getElementById("loadMoreBtn").style.display = "none";
-            return;
-        }
+            if (myProjects.length === 0 && currentPage === 1) {
+                container.innerHTML = `
+                    <p class="text-center text-muted mt-4">
+                        Você ainda não criou nenhum projeto.
+                    </p>
+                `;
+                document.getElementById("loadMoreBtn").style.display = "none";
+                return;
+            }
 
-        projects.forEach(project => {
-            container.innerHTML += createProjectCard(project);
-        });
+            myProjects.forEach(project => {
+                container.innerHTML += document.querySelector("#card-template").innerHTML
+                    .replace(/__TITLE__/g, project.title)
+                    .replace(/__DESCRIPTION__/g, project.description)
+                    .replace(/__CATEGORY__/g, project.category || "Sem categoria")
+                    .replace(/__CREATOR__/g, user.name)
+                    .replace(/__VOLUNTEERS__/g, project.volunteers?.length || 0)
+                    .replace(/__LIMIT__/g, project.maxVolunteers || 50)
+                    .replace(/__ID__/g, project.id);
+            });
 
-        if (projects.length < perPage) {
-            document.getElementById("loadMoreBtn").style.display = "none";
-        }
+            if (myProjects.length < perPage) {
+                document.getElementById("loadMoreBtn").style.display = "none";
+            }
 
-        currentPage++;
-    })
-    .catch(err => {
-        console.error("Erro ao carregar projetos:", err);
-    });
-}
-
-function createProjectCard(project) {
-    const volunteers = project.volunteers?.length || 0;
-    const limit = project.maxVolunteers || 50;
-    const progress = Math.min((volunteers / limit) * 100, 100);
-
-    return `
-        <div class="col-md-6 col-lg-4">
-            <div class="project-card">
-
-                <h2 class="project-title">${project.title}</h2>
-
-                <p class="project-meta">
-                    ${project.category || "Sem categoria"} • Criado por você
-                </p>
-
-                <p class="project-description">
-                    ${project.description.substring(0, 80)}...
-                </p>
-
-                <div class="progress">
-                    <div class="progress-bar" style="width:${progress}%"></div>
-                </div>
-
-                <p class="mt-2" style="font-size:0.85rem;">
-                    ${volunteers} / ${limit} voluntários
-                </p>
-
-                <div class="text-end mt-2">
-                    <a class="view-more" href="project-details.html?id=${project.id}">
-                        Ver Mais
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    `;
+            currentPage++;
+        })
+        .catch(err => console.error("Erro ao carregar projetos:", err));
 }

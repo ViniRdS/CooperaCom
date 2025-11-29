@@ -26,6 +26,21 @@
         <button id="loadMoreBtn" class="btn btn-warning px-4 fw-bold">Mais Projetos</button>
     </div>
 
+    <!-- Template para os cards -->
+    <div id="card-template" style="display:none;">
+        <div class="card project-card">
+            <h3 class="project-title">__TITLE__</h3>
+            <p class="project-description">__DESCRIPTION__</p>
+            <p class="project-category">Categoria: <span>__CATEGORY__</span></p>
+            <p class="project-creator">Criador: <span>__CREATOR__</span></p>
+            <div class="project-progress">
+                <div class="progress-bar" style="width: calc((__VOLUNTEERS__/__LIMIT__*100%))"></div>
+            </div>
+            <p class="project-slots">Vagas: <span>__VOLUNTEERS__ / __LIMIT__</span></p>
+            <a href="project-detail.html?id=__ID__" class="btn-primary">Ver detalhes</a>
+        </div>
+    </div>
+
 </main>
 
 <footer></footer>
