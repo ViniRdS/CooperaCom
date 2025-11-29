@@ -53,31 +53,38 @@ async function setupNavbar() {
   const storedUser = localStorage.getItem("user");
   const token = localStorage.getItem("token");
 
-  if (!storedUser || !token) return;
-
-  let user;
-  try {
-    user = JSON.parse(storedUser);
-  } catch (err) {
-    console.warn("Erro ao ler user no localStorage:", err);
-    return;
-  }
-
   const dropdown = document.querySelector(".dropdown");
-  if (dropdown) {
-    const avatarEl = dropdown.querySelector(".avatar");
-    const usernameEl = dropdown.querySelector(".username");
+  const avatarEl = dropdown?.querySelector(".avatar");
+  const usernameEl = dropdown?.querySelector(".username");
 
-    if (avatarEl) {
-      avatarEl.src = user.avatar || "img/default-avatar.png";
+  if (storedUser && token) {
+    let user;
+    try {
+      user = JSON.parse(storedUser);
+    } catch (err) {
+      console.warn("Erro ao ler user no localStorage:", err);
+      user = null;
     }
 
-    if (usernameEl) {
+    if (user && avatarEl && usernameEl) {
+      avatarEl.src = user.avatar || "img/default-avatar.png";
       usernameEl.textContent = user.name || "Usuário";
     }
-  }
 
-  setupLogout();
+    setupLogout();
+  } else {
+    // Caso não haja login, esconder dropdown
+    if (dropdown) dropdown.style.display = "none";
+
+    // Criar itens separados "Entrar" e "Cadastrar"
+    const loginLi = document.createElement("li");
+    loginLi.innerHTML = `<a href="login.html">Entrar</a>`;
+    navLinks.appendChild(loginLi);
+
+    const registerLi = document.createElement("li");
+    registerLi.innerHTML = `<a href="register.html">Cadastrar</a>`;
+    navLinks.appendChild(registerLi);
+  }
 }
 
 /* -------------------------
@@ -120,7 +127,7 @@ function setupDropdown() {
 
     const handler = (e) => {
       e.stopPropagation();
-      drop.classList.toggle("open");
+      drop.classList.toggle("active");
     };
 
     btn.__handler = handler;

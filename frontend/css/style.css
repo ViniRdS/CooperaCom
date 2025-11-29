@@ -373,6 +373,16 @@ header {
 body.dropdown-open {
     pointer-events: auto;
 }
+
+.user-btn .arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
 /* ---------------------------------------------
    IMAGENS PADRÃO DE SEÇÕES
 ---------------------------------------------*/
