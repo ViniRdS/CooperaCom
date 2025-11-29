@@ -1,5 +1,7 @@
 <div class="top-header">
   <div class="container header-content">
+    
+    <!-- LOGO -->
     <a href="index.html" class="logo" style="display: flex; align-items: center;">
       <img src="img/logo.png" alt="CooperaCom Logo" width="30" height="27" style="margin-right: 6px;">
       <span class="logo-text">
@@ -7,15 +9,33 @@
       </span>
     </a>
 
+    <!-- MENU -->
     <nav class="menu">
       <ul class="nav-links">
+
         <li><a href="projects.html">Projetos</a></li>
         <li><a href="create-project.html">Criar</a></li>
         <li><a href="about.html">Sobre</a></li>
         <li><a href="contact.html">Contato</a></li>
-        <li><a href="login.html">Entrar</a></li>
-        <li><a href="register.html">Cadastrar</a></li>
+
+        <!-- ============ DROPDOWN DO USUÁRIO ============ -->
+        <li class="dropdown" id="userDropdown">
+          <div class="user-btn">
+            <img src="img/default-avatar.png" class="avatar" alt="Avatar">
+            <span class="username">Usuário</span>
+            <span class="arrow">▼</span>
+          </div>
+
+          <div class="dropdown-content">
+            <a href="profile.html">Meu Perfil</a>
+            <a href="settings.html">Configurações</a>
+            <a href="#" id="logout">Sair</a>
+          </div>
+        </li>
+        <!-- ============================================== -->
+
       </ul>
     </nav>
+
   </div>
 </div>
