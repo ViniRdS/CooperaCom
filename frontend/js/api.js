@@ -60,32 +60,81 @@ const api = {
         }).then(res => res.json());
     },
 
-    /* -----------------------------
-       getUserProfile — agora local
-       ----------------------------- */
-    getUserProfile: () => {
-        const user = localStorage.getItem("user");
-        if (!user) {
-            return Promise.reject("Usuário não encontrado no localStorage");
+    getUserProfile: async () => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (!token || !user.id) {
+        throw new Error("Usuário não autenticado");
+    }
+
+    const res = await fetch(`${api.baseUrl}/users/${user.id}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
         }
-        return Promise.resolve(JSON.parse(user));
+    });
+
+    if (!res.ok) {
+        throw new Error("Erro ao buscar perfil no backend");
+    }
+
+    const data = await res.json();
+
+    // salva versão atualizada no localStorage
+    localStorage.setItem("user", JSON.stringify(data));
+
+    return data;
     },
 
-    updateProfile: (data) => {
-        const user = JSON.parse(localStorage.getItem("user")) || {};
-        const updated = { ...user, ...data };
+    updateProfile: async (data) => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-        localStorage.setItem("user", JSON.stringify(updated));
+    if (!token || !user.id) {
+        throw new Error("Usuário não autenticado");
+    }
 
-        return Promise.resolve({ success: true, user: updated });
+    const res = await fetch(`${api.baseUrl}/users/${user.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!res.ok) {
+        throw new Error("Erro ao atualizar perfil no servidor");
+    }
+
+    const updatedUser = await res.json();
+
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    return updatedUser;
     },
 
-    deleteUser: () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+    deleteUser: async () => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-        return Promise.resolve({ success: true });
-    },
+    if (!token || !user.id) {
+        throw new Error("Usuário não autenticado");
+    }
+
+    const res = await fetch(`${api.baseUrl}/users/${user.id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error("Erro ao excluir conta");
+    }
+
+    return await res.json();
+},
 
     contactMessage: (data) => {
         return fetch(`${api.baseUrl}/contact`, {

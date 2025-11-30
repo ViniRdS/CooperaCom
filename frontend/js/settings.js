@@ -21,66 +21,59 @@ document.addEventListener("DOMContentLoaded", async () => {
        2. SALVAR ALTERAÇÕES
     ====================================================== */
     form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Campos básicos
-        const updateData = {
-            name: document.getElementById("name").value,
-            bio: document.getElementById("bio").value
-        };
+    const updateData = {
+        name: document.getElementById("name").value,
+        bio: document.getElementById("bio").value
+    };
 
-        // SENHA — só envia se tiver algo digitado
-        const newPassword = document.getElementById("password").value.trim();
-        if (newPassword.length > 0) {
-            updateData.password = newPassword;
-        }
+    const newPassword = document.getElementById("password").value.trim();
+    if (newPassword) {
+        updateData.password = newPassword;
+    }
 
-        try {
-            const updatedUser = await api.updateProfile(updateData);
+    try {
+        const updatedUser = await api.updateProfile(updateData);
 
-            /* ======================================================
-               ATUALIZA LOCALSTORAGE PARA NAVBAR E PROFILE
-            ====================================================== */
-            localStorage.setItem("user", JSON.stringify(updatedUser));
+        localStorage.setItem("user", JSON.stringify(updatedUser));
 
-            /* ======================================================
-               ATUALIZA NAVBAR AO VIVO
-            ====================================================== */
-            if (window.setupNavbar) setupNavbar();
+        if (window.setupNavbar) setupNavbar();
 
-            alert("Alterações salvas com sucesso!");
+        alert("Alterações salvas com sucesso!");
+        document.getElementById("password").value = "";
 
-            // limpa campo de senha
-            document.getElementById("password").value = "";
+        window.location.href = "profile.html";
 
-        } catch (err) {
-            console.error("Erro ao atualizar perfil:", err);
-            alert("Erro ao salvar alterações. Tente novamente.");
-        }
-    });
+    } catch (err) {
+        console.error("Erro ao atualizar perfil:", err);
+        alert("Erro ao salvar alterações. Tente novamente.");
+    }
+});
+
 
     /* ======================================================
        3. EXCLUIR CONTA
     ====================================================== */
     deleteBtn.addEventListener("click", async () => {
-        const confirmDelete = confirm(
-            "Deseja realmente excluir sua conta? Esta ação é irreversível."
-        );
-        if (!confirmDelete) return;
+    const confirmDelete = confirm(
+        "Deseja realmente excluir sua conta? Esta ação é irreversível."
+    );
+    if (!confirmDelete) return;
 
-        try {
-            await api.deleteUser();
+    try {
+        await api.deleteUser(); // agora de verdade
 
-            // Remover dados locais
-            localStorage.removeItem("user");
-            localStorage.removeItem("token");
+        // limpar dados locais APÓS deletar no banco
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
 
-            alert("Conta excluída com sucesso.");
-            window.location.href = "index.html";
+        alert("Conta excluída com sucesso.");
+        window.location.href = "index.html";
 
-        } catch (err) {
-            console.error("Erro ao excluir conta:", err);
-            alert("Erro ao excluir a conta. Tente novamente.");
-        }
-    });
+    } catch (err) {
+        console.error("Erro ao excluir conta:", err);
+        alert("Erro ao excluir a conta. Tente novamente.");
+    }
+});
 });

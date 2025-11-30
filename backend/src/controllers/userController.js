@@ -1,4 +1,6 @@
 const { findUserById, updateUser, deleteUser } = require('../models/userModel');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 async function getUser(req, res) {
   try {
@@ -19,8 +21,21 @@ async function updateUserProfile(req, res) {
       return res.status(403).json({ message: 'Você só pode editar seu próprio perfil' });
     }
 
-    const { name, bio, avatar } = req.body;
-    const updated = await updateUser(id, { name, bio, avatar });
+    const { name, bio, avatar, password } = req.body;
+
+    let password_hash = null;
+
+    if (password && password.trim().length > 0) {
+      password_hash = await bcrypt.hash(password, SALT_ROUNDS);
+    }
+
+    const updated = await updateUser(id, {
+      name,
+      bio,
+      avatar,
+      password_hash
+    });
+
     res.json(updated);
   } catch (err) {
     console.error(err);
@@ -29,6 +44,7 @@ async function updateUserProfile(req, res) {
 }
 
 async function deleteUserAccount(req, res) {
+  console.log("req.userId =", req.userId);
   try {
     const id = parseInt(req.params.id);
     if (req.userId !== id) {
@@ -40,9 +56,9 @@ async function deleteUserAccount(req, res) {
 
     res.json({ message: 'Conta excluída com sucesso' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Erro ao excluir usuário' });
-  }
+  console.error("ERRO AO EXCLUIR:", err);
+  res.status(500).json({ message: "Erro ao excluir usuário", detalhe: err.message });
+}
 }
 
 module.exports = {

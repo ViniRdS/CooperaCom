@@ -24,18 +24,19 @@ async function findUserById(id) {
   return res.rows[0];
 }
 
-async function updateUser(id, { name, bio, avatar }) {
+async function updateUser(id, { name, bio, avatar, password_hash }) {
   const q = `
     UPDATE prata.users
     SET 
       name = COALESCE($1, name),
       bio = COALESCE($2, bio),
       avatar = COALESCE($3, avatar),
+      user_password = COALESCE($4, user_password),
       updated_at = CURRENT_TIMESTAMP
-    WHERE id = $4
+    WHERE id = $5
     RETURNING id, name, email, bio, avatar, created_at;
   `;
-  const values = [name, bio, avatar, id];
+  const values = [name, bio, avatar, password_hash, id];
   const res = await pool.query(q, values);
   return res.rows[0];
 }
