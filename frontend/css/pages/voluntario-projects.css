@@ -24,67 +24,17 @@ main {
 
 /* Título */
 main h1 {
-  color: #175b43 !important; /* Projetos */
+  color: #175b43 !important;
   font-size: 2rem;
 }
 
 main h1 span {
-  color: #f4a261 !important; /* Voluntariados */
+  color: #f4a261 !important;
 }
 
-/* Grade de projetos */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-}
-
-/* Card de projeto */
-.project-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  transition: transform 0.2s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-4px);
-}
-
-/* Conteúdo do card */
-.project-card h3 {
-  color: #175b43;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.project-card p {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 6px;
-}
-
-.project-card .category {
-  color: #f4a261;
-  font-weight: 600;
-}
-
-/* Botão do card */
-.project-card button {
-  margin-top: 12px;
-  width: 100%;
-  background-color: #175b43;
-  color: white;
-  border: none;
-  padding: 10px 0;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.project-card button:hover {
-  background-color: #134032;
+/* Grid de projetos */
+#volunteered-projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
