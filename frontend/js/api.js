@@ -79,6 +79,11 @@ const api = {
         }).then(res => res.json());
     },
 
+    getCategories: () => {
+        return fetch(`${api.baseUrl}/categories`)
+            .then(res => res.json());
+    },
+    
     getUserProfile: async () => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "{}");

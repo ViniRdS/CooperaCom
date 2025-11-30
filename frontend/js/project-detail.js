@@ -135,7 +135,7 @@ async function initJoinButton(project, id) {
         return;
     }
 
-    // Criador do projeto → esconder botão
+    // Criador do projeto = esconder botão
     if (user.id === project.creator_id) {
         btn.style.display = "none";
         return;

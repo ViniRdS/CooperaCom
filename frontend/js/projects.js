@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `
             <h3 class="project-title">${escapeHtml(title)}</h3>
 
-            <p class="project-description">${escapeHtml(description)}</p>
+            <p class="project-description">${escapeHtml(description.substring(0, 33))}...</p>
 
             <p class="project-category">Categoria: <strong>${escapeHtml(category)}</strong></p>
 
@@ -91,6 +91,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // filtros: quando mudar, resetar visibleCount para 6 e recarregar
+
+    async function loadCategories() {
+        const categorySelect = document.querySelector('#category');
+        if (!categorySelect) return;
+
+        try {
+            const categories = await api.getCategories(); // vamos criar essa função
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.id; // aqui usamos o ID, porque o backend filtra por ID
+                option.textContent = cat.name;
+                categorySelect.appendChild(option);
+            });
+        } catch (err) {
+            console.error('Erro ao carregar categorias:', err);
+        }
+    }
     function applyFilters() {
         visibleCount = 6;
         const filters = {};
@@ -123,5 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // inicial
+    loadCategories();
     loadProjects();
 });
