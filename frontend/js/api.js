@@ -46,7 +46,7 @@ const api = {
 
     joinProject: (id) => {
         const token = localStorage.getItem('token');
-        return fetch(`${api.baseUrl}/projects/${id}/join`, {
+        return fetch(`${api.baseUrl}/volunteers/${id}/join`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` }
         }).then(res => res.json());
@@ -54,9 +54,28 @@ const api = {
 
     leaveProject: (id) => {
         const token = localStorage.getItem('token');
-        return fetch(`${api.baseUrl}/projects/${id}/leave`, {
-            method: 'POST',
+        return fetch(`${api.baseUrl}/volunteers/${id}/leave`, {
+            method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
+        }).then(res => res.json());
+    },
+
+    getVolunteers: (projectId) => {
+    const token = localStorage.getItem('token');
+    return fetch(`${api.baseUrl}/volunteers/${projectId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    }).then(res => res.json());
+    },
+
+    updateNoticeBoard: (projectId, text) => {
+        const token = localStorage.getItem('token');
+        return fetch(`${api.baseUrl}/projects/${projectId}/notice`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ notice_board: text })
         }).then(res => res.json());
     },
 

@@ -16,7 +16,7 @@ async function loadProjectDetail() {
         const user = JSON.parse(localStorage.getItem("user"));
         const editBtn = document.getElementById("edit-notice-btn");
 
-        if (user && user.id === project.user_id) {
+        if (user && user.id === project.creator_id) {
             editBtn.style.display = "inline-block";
         }
 
@@ -100,11 +100,7 @@ function initNoticeEditor(project, id) {
         // SALVAR
         saveBtn.addEventListener("click", async () => {
             const novoAviso = textarea.value.trim();
-
-            const resp = await api.updateProject(id, {
-                notice_board: novoAviso
-            });
-
+            const resp = await api.updateNoticeBoard(id, novoAviso);
             if (resp.error) {
                 alert("Erro ao salvar aviso.");
                 return;
@@ -124,4 +120,45 @@ function initNoticeEditor(project, id) {
                 : "Avisos ficarão aqui";
         });
     });
+}
+
+async function initJoinButton(project, id) {
+    const btn = document.getElementById("join-leave-btn");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!btn) return;
+
+    // Usuário não logado
+    if (!user) {
+        btn.textContent = "Faça login para participar";
+        btn.disabled = true;
+        return;
+    }
+
+    // Criador do projeto → esconder botão
+    if (user.id === project.creator_id) {
+        btn.style.display = "none";
+        return;
+    }
+
+    let volunteers = [];
+    try {
+        volunteers = await api.getVolunteers(id);
+    } catch (err) {
+        console.error("Erro ao buscar voluntários:", err);
+    }
+    
+    const isVolunteer = volunteers.some(v => v.id === user.id)
+
+    btn.textContent = isVolunteer ? "Sair do projeto" : "Participar";
+
+    btn.onclick = async () => {
+        if (isVolunteer) {
+            const r = await api.leaveProject(id);
+            if (!r.error) location.reload();
+        } else {
+            const r = await api.joinProject(id);
+            if (!r.error) location.reload();
+        }
+    };
 }
