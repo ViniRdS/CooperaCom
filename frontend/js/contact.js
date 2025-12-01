@@ -11,14 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
             message: form.message.value.trim()
         };
 
+        messageEl.style.color = "#444";
+        messageEl.textContent = "Enviando mensagem...";
+
         try {
-            await api.contactMessage(data);
-            messageEl.style.color = 'green';
-            messageEl.textContent = 'Mensagem enviada com sucesso!';
+            const res = await api.contactMessage(data);
+
+            messageEl.style.color = "green";
+            messageEl.textContent = res.message;
+
             form.reset();
+
+            setTimeout(() => {
+                messageEl.textContent = "";
+            }, 3000);
+
         } catch (err) {
-            messageEl.style.color = 'red';
-            messageEl.textContent = 'Erro ao enviar mensagem. Tente novamente.';
+            messageEl.style.color = "red";
+            messageEl.textContent = "Erro ao enviar mensagem. Tente novamente.";
+            setTimeout(() => {
+                messageEl.textContent = "";
+            }, 3000);
+
             console.error(err);
         }
     });

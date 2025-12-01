@@ -160,12 +160,18 @@ const api = {
     return await res.json();
 },
 
-    contactMessage: (data) => {
-        return fetch(`${api.baseUrl}/contact`, {
+    contactMessage: async (data) => {
+        const res = await fetch(`${api.baseUrl}/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
-        }).then(res => res.json());
+        });
+
+        if (!res.ok) {
+            throw new Error("Erro ao enviar mensagem");
+        }
+
+        return res.json();
     },
 
     getProjectMessages: (projectId) => {
