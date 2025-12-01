@@ -48,13 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const res = await api.register(data);
 
-            if (res.success) {
+            if (res.token && res.user) {
+                //localStorage.setItem("token", res.token);
+                //localStorage.setItem("user", JSON.stringify(res.user));
+
                 msg.style.color = "green";
                 msg.textContent = "Cadastro realizado! Redirecionando...";
                 setTimeout(() => window.location.href = 'login.html', 1200);
             } else {
                 msg.style.color = "red";
-                msg.textContent = res.message || "Erro ao criar conta.";
+                msg.textContent = res.message || res.error || "Erro ao criar conta.";
             }
         });
     }

@@ -14,7 +14,7 @@ const api = {
     },
 
     register: (data) => {
-        return fetch(`${api.baseUrl}/register`, {
+        return fetch(`${api.baseUrl}/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
