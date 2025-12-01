@@ -128,10 +128,26 @@ async function initJoinButton(project, id) {
 
     if (!btn) return;
 
-    // Usuário não logado
+    let volunteers = [];
+    try {
+        volunteers = await api.getVolunteers(id);
+    } catch (err) {
+        console.error("Erro ao buscar voluntários:", err);
+    }
+
+    const isFull = project.current_volunteer >= project.number_volunteer;
+
     if (!user) {
-        btn.textContent = "Faça login para participar";
+        // Usuário não logado e projeto não cheio
+        if (!isFull) {
+            btn.textContent = "Faça login para participar";
+            btn.onclick = () => { window.location.href = "login.html"; };
+            return;
+        }
+        // Usuário não logado e projeto cheio
+        btn.textContent = "Projeto Cheio";
         btn.disabled = true;
+        btn.classList.add("btn-disabled");
         return;
     }
 
@@ -141,16 +157,23 @@ async function initJoinButton(project, id) {
         return;
     }
 
-    let volunteers = [];
-    try {
-        volunteers = await api.getVolunteers(id);
-    } catch (err) {
-        console.error("Erro ao buscar voluntários:", err);
-    }
+    const isVolunteer = volunteers.some(v => v.id === user.id);
     
-    const isVolunteer = volunteers.some(v => v.id === user.id)
+    if (isFull && !isVolunteer && user.id !== project.creator_id) {
+        btn.textContent = "Projeto Cheio";
+        btn.disabled = true;
+        btn.classList.add("btn-disabled");
+        return;
+    }
+    // -----------------------------------
 
-    btn.textContent = isVolunteer ? "Sair do projeto" : "Participar";
+    if (isVolunteer) {
+        btn.textContent = "Sair do projeto";
+        btn.classList.add("btn-sair");
+    } else {
+        btn.textContent = "Participar";
+        btn.classList.remove("btn-danger");
+    }
 
     btn.onclick = async () => {
         if (isVolunteer) {

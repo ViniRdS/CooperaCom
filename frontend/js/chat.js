@@ -57,7 +57,12 @@ function renderChatReadOnly() {
 
 function showChatError(text) {
   const box = document.getElementById('chat-messages');
-  box.insertAdjacentHTML('beforeend', `<div class="text-danger small">Erro: ${escapeHtml(text)}</div>`);
+  //box.insertAdjacentHTML('beforeend', `<div class="text-danger small">${escapeHtml(text)}</div>`);
+  box.innerHTML = `<p class="text-muted">${escapeHtml(text)}</p>`;
+  const input = document.getElementById('chat-input');
+  const btn = document.getElementById('chat-send-btn');
+  if (input) input.disabled = true;
+  if (btn) btn.disabled = true;
 }
 
 async function loadHistoryAndBindSend() {
