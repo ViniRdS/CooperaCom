@@ -46,10 +46,35 @@ async function deleteUser(id) {
   return res.rows[0];
 }
 
+async function getUserCreatedProjects(userId) {
+  const q = `
+    SELECT p.*
+    FROM prata.projects p
+    WHERE p.creator_id = $1
+    ORDER BY p.created_at DESC
+  `;
+  const res = await pool.query(q, [userId]);
+  return res.rows;
+}
+
+async function getUserJoinedProjects(userId) {
+  const q = `
+    SELECT p.*
+    FROM prata.projects p
+    JOIN prata.volunteers v ON v.project_id = p.id
+    WHERE v.user_id = $1
+    ORDER BY v.joined_at DESC
+  `;
+  const res = await pool.query(q, [userId]);
+  return res.rows;
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
   findUserById,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserCreatedProjects,
+  getUserJoinedProjects
 };

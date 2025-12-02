@@ -1,4 +1,4 @@
-const { findUserById, updateUser, deleteUser } = require('../models/userModel');
+const { findUserById, updateUser, deleteUser, getUserCreatedProjects, getUserJoinedProjects } = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
@@ -61,8 +61,32 @@ async function deleteUserAccount(req, res) {
 }
 }
 
+async function getCreatedProjects(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const projects = await getUserCreatedProjects(id);
+    res.json(projects);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erro ao buscar projetos criados' });
+  }
+}
+
+async function getJoinedProjects(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const projects = await getUserJoinedProjects(id);
+    res.json(projects);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erro ao buscar projetos que o usuário participa' });
+  }
+}
+
 module.exports = {
   getUser,
   updateUserProfile,
-  deleteUserAccount
+  deleteUserAccount,
+  getCreatedProjects,
+  getJoinedProjects
 };
