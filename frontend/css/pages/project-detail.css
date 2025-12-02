@@ -196,10 +196,9 @@ h1, h2 {
   color: #175b43;
 }
 
-.edit-btn {
+.edit-btn, .edit-project-btn {
   color: #175b43;
-    background-color: #175b43;
-;
+    background-color: #f4a261;
     color: white;
     border: none;
     padding: 6px 12px;
@@ -207,22 +206,22 @@ h1, h2 {
     cursor: pointer;
 }
 
-.edit-btn:hover {
-    background-color: #175b43;
+.edit-btn, .edit-project-btn :hover {
+    background-color: #ee9a54;
 }
 
 /* Scroll automático na descrição após ~5 linhas */
 #project-description {
-    max-height: 7.5em;   /* altura aproximada de 5 linhas */
+    max-height: 13.5em;
     overflow-y: auto;
-    padding-right: 6px;  /* espaço para o scroll */
+    padding-right: 6px;
     line-height: 1.4;
     white-space: pre-line;
 }
 #notice-text {
-    max-height: 20em;   /* altura aproximada de 5 linhas */
+    max-height: 20em;
     overflow-y: auto;
-    padding-right: 6px;  /* espaço para o scroll */
+    padding-right: 6px;
     line-height: 1.4;
     white-space: pre-line;
 }
