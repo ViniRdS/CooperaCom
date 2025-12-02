@@ -216,6 +216,15 @@ h1, h2 {
     max-height: 7.5em;   /* altura aproximada de 5 linhas */
     overflow-y: auto;
     padding-right: 6px;  /* espaço para o scroll */
+    line-height: 1.4;
+    white-space: pre-line;
+}
+#notice-text {
+    max-height: 20em;   /* altura aproximada de 5 linhas */
+    overflow-y: auto;
+    padding-right: 6px;  /* espaço para o scroll */
+    line-height: 1.4;
+    white-space: pre-line;
 }
 
 .chat-input input {

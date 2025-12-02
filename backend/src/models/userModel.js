@@ -47,9 +47,14 @@ async function deleteUser(id) {
 }
 
 async function getUserCreatedProjects(userId) {
+  
   const q = `
-    SELECT p.*
+    SELECT p.*,
+           u.name AS creator_name,
+           c.name AS category_name
     FROM prata.projects p
+    LEFT JOIN prata.users u ON p.creator_id = u.id
+    LEFT JOIN prata.categories c ON p.category_id = c.id
     WHERE p.creator_id = $1
     ORDER BY p.created_at DESC
   `;
@@ -59,11 +64,15 @@ async function getUserCreatedProjects(userId) {
 
 async function getUserJoinedProjects(userId) {
   const q = `
-    SELECT p.*
+    SELECT p.*,
+           u.name AS creator_name,
+           c.name AS category_name
     FROM prata.projects p
-    JOIN prata.volunteers v ON v.project_id = p.id
+    LEFT JOIN prata.users u ON p.creator_id = u.id
+    LEFT JOIN prata.categories c ON p.category_id = c.id
+    INNER JOIN prata.volunteers v ON v.project_id = p.id
     WHERE v.user_id = $1
-    ORDER BY v.joined_at DESC
+    ORDER BY p.created_at DESC
   `;
   const res = await pool.query(q, [userId]);
   return res.rows;

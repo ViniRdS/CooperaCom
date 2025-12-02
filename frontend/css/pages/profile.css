@@ -186,3 +186,25 @@ body {
 
 }
 
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.project-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+#user-bio {
+    max-height: 120px;   /* limite de tamanho antes do scroll */
+    overflow-y: auto;    /* ativa scroll vertical */
+    padding-right: 6px;  /* evita que o texto encoste na barra */
+    line-height: 1.4;
+    white-space: pre-line; /* mantém quebras de linha */
+}

@@ -1,39 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     await loadProfileInfo();
-    loadUserProjects();
+    loadProjects();
 });
-
-async function loadUserProjects() {
-    const token = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
-
-    if (!token || !storedUser) {
-        console.warn("Usuário não logado.");
-        return;
-    }
-
-    const user = JSON.parse(storedUser);
-    const userId = user.id;
-
-    if (!userId) {
-        console.error("ERRO: user.id não encontrado no localStorage.");
-        return;
-    }
-
-    renderProjectsSection(
-    `/api/project/by-creator/${userId}`,
-    "#created-projects",
-    "Você ainda não criou nenhum projeto.",
-    "#created-count"
-    );
-
-    renderProjectsSection(
-        `/api/project/by-volunteer/${userId}`,
-        "#volunteer-projects",
-        "Você ainda não participa de nenhum projeto.",
-        "#vol-count"
-    );
-}
 
 async function loadProfileInfo() {
     try {
@@ -50,79 +18,92 @@ async function loadProfileInfo() {
     }
 }
 
-/* =====================================================
-   CARREGA E RENDERIZA LISTAGEM DE PROJETOS EM CARDS
-   ===================================================== */
+async function loadProjects() {
+    const user = await api.getUserProfile();
 
-async function renderProjectsSection(apiUrl, containerSelector, emptyMessage, countSelector = null) {
-    const container = document.querySelector(containerSelector);
-    if (!container) return;
+    const createdGrid = document.querySelector('#created-projects');
+    const volunteerGrid = document.querySelector('#volunteer-projects');
+
+    createdGrid.innerHTML = '<p>Carregando...</p>';
+    volunteerGrid.innerHTML = '<p>Carregando...</p>';
 
     try {
-        const res = await fetch(apiUrl, { headers: { "Authorization": localStorage.getItem("token") } });
-        if (!res.ok) {
-            container.innerHTML = `<p class="empty">${emptyMessage}</p>`;
-            if (countSelector) document.querySelector(countSelector).textContent = 0;
-            return;
+        // PROJETOS CRIADOS
+        let createdProjects = await api.getCreatedProjects(user.id);
+
+        if (!createdProjects || createdProjects.length === 0) {
+            createdGrid.innerHTML = '<p>Nenhum projeto encontrado.</p>';
+        } else {
+            createdProjects.sort((a, b) => b.id - a.id);
+            document.getElementById("created-count").textContent = createdProjects.length;
+            createdProjects = createdProjects.slice(0, 3);
+            createdGrid.innerHTML = '';
+            
+
+            createdProjects.forEach(project => {
+                createdGrid.appendChild(buildProjectCard(project));
+            });
         }
 
-        const projects = await res.json();
+        // PROJETOS QUE O USUÁRIO PARTICIPA
+        let joinedProjects = await api.getJoinedProjects(user.id);
 
-        if (!projects || projects.length === 0) {
-            container.innerHTML = `<p class="empty">${emptyMessage}</p>`;
-            if (countSelector) document.querySelector(countSelector).textContent = 0;
-            return;
+        if (!joinedProjects || joinedProjects.length === 0) {
+            volunteerGrid.innerHTML = '<p>Você não participa de nenhum projeto.</p>';
+        } else {
+            joinedProjects.sort((a, b) => b.id - a.id);
+            document.getElementById("vol-count").textContent = joinedProjects.length;
+            joinedProjects = joinedProjects.slice(0, 3);
+            volunteerGrid.innerHTML = '';
+
+            joinedProjects.forEach(project => {
+                volunteerGrid.appendChild(buildProjectCard(project));
+            });
         }
-
-        if (countSelector) {
-            document.querySelector(countSelector).textContent = projects.length;
-        }
-
-        const cardTemplate = await loadProjectCardTemplate();
-
-        container.innerHTML = projects.map(project =>
-            buildProjectCard(cardTemplate, project)
-        ).join("");
 
     } catch (err) {
-        console.error(`Erro ao carregar ${containerSelector}:`, err);
-        container.innerHTML = `<p class="empty">${emptyMessage}</p>`;
-        if (countSelector) document.querySelector(countSelector).textContent = 0;
+        console.error('Erro ao carregar projetos:', err);
+        createdGrid.innerHTML = '<p>Erro ao carregar projetos criados.</p>';
+        volunteerGrid.innerHTML = '<p>Erro ao carregar projetos de voluntariado.</p>';
     }
 }
 
-/* =====================================================
-   BUSCA TEMPLATE DE CARD (project-card.html)
-   ===================================================== */
+function buildProjectCard(project) {
+    const current = project.current_volunteer || 0;
+    const max = project.number_volunteer || 1;
+    const percent = Math.min((current / max) * 100, 100);
 
-async function loadProjectCardTemplate() {
-    const paths = [
-        "components/project-card.html",
-        "../components/project-card.html",
-        "../../components/project-card.html"
-    ];
+    const category = project.category_name || project.category || project.category?.name || "Sem categoria";
+    const creator = project.creator_name || project.creator || project.creator?.name || "Desconhecido";
 
-    for (const p of paths) {
-        try {
-            const res = await fetch(p);
-            if (!res.ok) continue;
-            return await res.text();
-        } catch (err) {}
-    }
+    const card = document.createElement('div');
+    card.classList.add('project-card');
 
-    throw new Error("Não foi possível carregar project-card.html");
-}
+    card.innerHTML = `
+        <h3 class="project-title">${project.title}</h3>
 
-/* =====================================================
-   PREENCHE TEMPLATE COM OS DADOS DO PROJETO
-   ===================================================== */
+        <p class="project-description">
+            ${project.description.substring(0, 33)}...
+        </p>
 
-function buildProjectCard(template, project) {
-    return template
-        .replace("Título do Projeto", project.title)
-        .replace("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae...", project.description || "Sem descrição.")
-        .replace("Educação", project.category || "N/A")
-        .replace("Nome do Usuário", project.creator?.name || "Desconhecido")
-        .replace("3 / 5", `${project.currentVolunteers || 0} / ${project.requiredVolunteers || 0}`)
-        .replace("project-detail.html?id=1", `project-detail.html?id=${project.id}`);
+        <p class="project-category">
+            Categoria: <strong>${category}</strong>
+        </p>
+
+        <p class="project-creator">
+            Criador: <strong>${creator}</strong>
+        </p>
+
+        <div class="project-progress">
+            <div class="project-progress-filled" style="width: ${percent}%"></div>
+        </div>
+
+        <p class="project-slots">${current} / ${max} voluntários</p>
+
+        <a href="project-detail.html?id=${project.id}" class="link-more">
+            Ver mais
+        </a>
+    `;
+
+    return card;
 }

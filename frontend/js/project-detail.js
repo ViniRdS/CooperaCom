@@ -80,17 +80,27 @@ function initNoticeEditor(project, id) {
         const textarea = document.createElement("textarea");
         textarea.id = "notice-editor";
         textarea.style.width = "100%";
-        textarea.style.height = "140px";
+        textarea.style.height = "20em";
         textarea.value = project.notice_board || "";
 
         // Botões
         const saveBtn = document.createElement("button");
         saveBtn.textContent = "Salvar";
         saveBtn.style.marginRight = "8px";
+        saveBtn.style.backgroundColor = "#175b43";
+        saveBtn.style.color = "#fff";
+        saveBtn.style.border = "none";
+        saveBtn.style.padding = "6px 12px";
+        saveBtn.style.borderRadius = "6px";
 
         const cancelBtn = document.createElement("button");
         cancelBtn.textContent = "Cancelar";
-
+        cancelBtn.style.backgroundColor = "#dc3545";
+        cancelBtn.style.color = "#fff";
+        cancelBtn.style.border = "none";
+        cancelBtn.style.padding = "6px 12px";
+        cancelBtn.style.borderRadius = "6px";
+        
         // Limpa e adiciona editor
         noticeBox.innerHTML = "";
         noticeBox.appendChild(textarea);

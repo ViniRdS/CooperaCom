@@ -192,4 +192,14 @@ const api = {
         body: JSON.stringify(data)
     }).then(res => res.json());
     },
+
+    getCreatedProjects: (userId) => {
+        return fetch(`${api.baseUrl}/users/${userId}/projects/created`)
+            .then(res => res.json());
+    },
+
+    getJoinedProjects: (userId) => {
+        return fetch(`${api.baseUrl}/users/${userId}/projects/joined`)
+            .then(res => res.json());
+    },
 };
