@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const http = require('http');
+const path = require("path");
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const setupWebSocket = require('./websocket');
 
 app.use(cors());
 app.use(express.json());
-const path = require("path");
+
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
