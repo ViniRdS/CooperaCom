@@ -14,7 +14,7 @@ const setupWebSocket = require('./websocket');
 
 app.use(cors());
 app.use(express.json());
-
+const path = require("path");
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -23,7 +23,10 @@ const projectRoutes = require('./routes/projectRoutes');
 const volunteerRoutes = require('./routes/volunteerRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const messageRoutes = require('./routes/messagesRoutes');
+const uploadRoutes = require("./routes/uploadRoutes");
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/upload", uploadRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
