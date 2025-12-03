@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    setupAvatarUpload();
     await loadProfileInfo();
     loadProjects();
 });
@@ -16,6 +17,13 @@ async function loadProfileInfo() {
     } catch (err) {
         console.error("Erro ao carregar perfil:", err);
     }
+}
+function setupAvatarUpload() {
+    const avatar = document.getElementById("user-avatar");
+    const input = document.getElementById("avatar-input");
+
+    if (!avatar || !input) return;
+
 }
 
 async function loadProjects() {
@@ -107,3 +115,27 @@ function buildProjectCard(project) {
 
     return card;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const avatarImg = document.getElementById("user-avatar");
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.getElementById("modalClose"); // AGORA EXISTE
+
+    if (!avatarImg) return;
+
+    avatarImg.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = avatarImg.src;
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});

@@ -21,35 +21,52 @@ document.addEventListener("DOMContentLoaded", async () => {
        2. SALVAR ALTERAÇÕES
     ====================================================== */
     form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const updateData = {
-        name: document.getElementById("name").value,
-        bio: document.getElementById("bio").value
-    };
+        const updateData = {
+            name: document.getElementById("name").value,
+            bio: document.getElementById("bio").value
+        };
 
-    const newPassword = document.getElementById("password").value.trim();
-    if (newPassword) {
-        updateData.password = newPassword;
-    }
+        const newPassword = document.getElementById("password").value.trim();
+        if (newPassword) updateData.password = newPassword;
 
-    try {
-        const updatedUser = await api.updateProfile(updateData);
+        // ---------- SE TIVER FOTO ----------
+        const fileInput = document.getElementById("avatar");
+        const file = fileInput.files[0];
 
-        localStorage.setItem("user", JSON.stringify(updatedUser));
+        if (file) {
+            const token = localStorage.getItem("token");
 
-        if (window.setupNavbar) setupNavbar();
+            const formData = new FormData();
+            formData.append("avatar", file);
 
-        alert("Alterações salvas com sucesso!");
-        document.getElementById("password").value = "";
+            const uploadRes = await fetch(`${api.baseUrl}/upload/avatar`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${token}` },
+                body: formData
+            });
 
-        window.location.href = "profile.html";
+            const { url } = await uploadRes.json();
+            updateData.avatar = url;
+        }
 
-    } catch (err) {
-        console.error("Erro ao atualizar perfil:", err);
-        alert("Erro ao salvar alterações. Tente novamente.");
-    }
-});
+        // ---------- ATUALIZA PERFIL ----------
+        try {
+            const updatedUser = await api.updateProfile(updateData);
+
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            if (window.setupNavbar) setupNavbar();
+
+            alert("Alterações salvas com sucesso!");
+            window.location.href = "profile.html";
+
+        } catch (err) {
+            console.error("Erro ao atualizar perfil:", err);
+            alert("Erro ao salvar alterações.");
+        }
+    });
 
 
     /* ======================================================

@@ -8,6 +8,7 @@
    <script src="js/api.js" defer></script>
    <script src="js/components.js" defer></script>
    <script src="js/main.js" defer></script>
+   <script src="js/avatar.js" defer></script>
    <script src="js/profile.js" defer></script>
    <title>Perfil | CooperaCom</title>
 </head>
@@ -15,15 +16,20 @@
 
 <header id="navbar"></header>
 
+<div id="imgModal" class="modal">
+    <span id="modalClose" class="close-btn">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
 <main class="profile-container">
 
     <h1 class="profile-title">Perfil</h1>
 
  <section class="profile-header">
-
+<input type="file" id="avatar-input" accept="image/*" style="display:none">
   <div class="profile-left">
     <div class="profile-avatar">
-      <img id="user-avatar" src="img/default-avatar.png" alt="Foto do usuário">
+      <img id="user-avatar" src="img/default-avatar.png" alt="Foto do usuário" style="cursor:pointer;">
     </div>
     <h2 id="user-name">Carregando...</h2>
     <p id="user-bio">...</p>
