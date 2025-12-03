@@ -29,11 +29,16 @@
 
 /* Cards dos participantes */
 .team-member {
-  width: 100%;
-  min-width: 220px;
-  max-width: 250px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.team-member img {
+  display: block;
   margin: 0 auto;
-  transition: transform 0.2s ease;
+  border: 2px solid #166047
 }
 
 .team-member:hover {
