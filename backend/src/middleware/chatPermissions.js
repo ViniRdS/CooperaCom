@@ -11,9 +11,6 @@ async function requireProjectMembership(req, res, next) {
     const project = pr.rows[0];
     if (!project) return res.status(404).json({ message: 'Projeto não encontrado' });
 
-    if (project.status !== 'ativo') {
-      return res.status(403).json({ message: 'Projeto não está ativo' });
-    }
 
     if (project.creator_id === userId) {
       req.project = project;

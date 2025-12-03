@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Carrega projetos da API (com filtros opcionais)
     async function loadProjects(filters = {}) {
         try {
+            filters.status = "ativo";
+
             grid.innerHTML = '<p>Carregando...</p>';
             allProjects = await api.getProjects(filters) || [];
-            // caso a API retorne um objeto {data: [...]}, tente ajustar aqui:
+
             if (!Array.isArray(allProjects) && allProjects.data) {
                 allProjects = allProjects.data;
             }

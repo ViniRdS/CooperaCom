@@ -60,6 +60,15 @@ const api = {
         }).then(res => res.json());
     },
 
+    closeProject: (id) => {
+        const token = localStorage.getItem("token");
+        return fetch(`${api.baseUrl}/projects/${id}/close`, {
+            method: "PATCH",
+            headers: { "Authorization": `Bearer ${token}` }
+        }).then(res => res.json());
+    },
+
+
     getVolunteers: (projectId) => {
     const token = localStorage.getItem('token');
     return fetch(`${api.baseUrl}/volunteers/${projectId}`, {

@@ -1,5 +1,3 @@
-// js/index.js
-
 document.addEventListener('DOMContentLoaded', () => {
     loadProjects();
 });
@@ -16,7 +14,7 @@ async function loadProjects() {
             projectsGrid.innerHTML = '<p>Nenhum projeto encontrado.</p>';
             return;
         }
-
+        projects = projects.filter(p => p.status === 'ativo');
         /* ======================================================
            1. ORDENAR PELOS MAIS RECENTES (MAIOR ID PRIMEIRO)
         ====================================================== */

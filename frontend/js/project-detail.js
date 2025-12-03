@@ -47,6 +47,31 @@ async function loadProjectDetail() {
             noticeBox.textContent = "Avisos ficarão aqui";
         }
 
+        if (project.status === "encerrado") {
+            const warning = document.createElement("div");
+            warning.textContent = "⚠️ Este projeto foi encerrado.";
+            warning.style.background = "#ffcccc";
+            warning.style.padding = "10px";
+            warning.style.marginBottom = "15px";
+            warning.style.borderRadius = "6px";
+            document.querySelector(".project-info").prepend(warning);
+
+            // Ocultar botão principal
+            const btn = document.getElementById("join-leave-btn");
+            btn.style.display = "none";
+
+            // bloquear edição
+            document.getElementById("edit-notice-btn").style.display = "none";
+            document.getElementById("edit-project-btn").style.display = "none";
+
+            // bloquear chat
+            const chatInput = document.getElementById("chat-input");
+            const chatBtn = document.getElementById("chat-send-btn");
+            if (chatInput) chatInput.disabled = true;
+            if (chatBtn) chatBtn.disabled = true;
+        }
+
+
         initJoinButton(project, id);
         initChat(id, project);
         initNoticeEditor(project, id);
@@ -168,9 +193,31 @@ async function initJoinButton(project, id) {
         return;
     }
 
-    // Criador do projeto = esconder botão
-    if (user.id === project.creator_id) {
+    if (user && user.id === project.creator_id) {
+
+    if (project.status === "encerrado") {
         btn.style.display = "none";
+        return;
+    }
+
+        btn.textContent = "Encerrar Projeto";
+        btn.classList.add("btn-danger");
+
+        btn.onclick = async () => {
+            if (!confirm("Tem certeza que deseja encerrar este projeto? Esta ação é irreversível.")) {
+                return;
+            }
+
+            const resp = await api.closeProject(id);
+            if (resp.error) {
+                alert("Erro ao encerrar projeto.");
+                return;
+            }
+
+            alert("Projeto encerrado com sucesso!");
+            location.reload();
+        };
+
         return;
     }
 

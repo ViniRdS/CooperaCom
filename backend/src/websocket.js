@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 function setupWebSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: 'http://localhost:8001', //colocar a rota do seu frontend aqui
+      origin: 'http://localhost:8001',
       methods: ['GET', 'POST']
     }
   });
@@ -46,10 +46,6 @@ function setupWebSocket(server) {
           socket.emit('error_message', { message: 'Projeto não encontrado' });
           return;
         }
-        if (project.status !== 'ativo') {
-          socket.emit('error_message', { message: 'Projeto não está ativo' });
-          return;
-        }
 
         if (project.creator_id === userId) {
           socket.join(`project_${projectId}`);
@@ -78,8 +74,9 @@ function setupWebSocket(server) {
 
         const pRes = await pool.query('SELECT id, status, creator_id FROM prata.projects WHERE id = $1', [projectId]);
         const project = pRes.rows[0];
-        if (!project || project.status !== 'ativo') {
-          socket.emit('error_message', { message: 'Projeto não disponível para mensagens' });
+
+        if (!project) {
+          socket.emit('error_message', { message: 'Projeto não encontrado' });
           return;
         }
 
