@@ -1,4 +1,5 @@
 const { findUserById, updateUser, deleteUser, getUserCreatedProjects, getUserJoinedProjects } = require('../models/userModel');
+const { removeUserFromAllActiveProjects } = require('../models/volunteerModel');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 
@@ -50,7 +51,8 @@ async function deleteUserAccount(req, res) {
     if (req.userId !== id) {
       return res.status(403).json({ message: 'Você só pode deletar sua própria conta' });
     }
-
+    
+    await removeUserFromAllActiveProjects(id);
     const deleted = await deleteUser(id);
     if (!deleted) return res.status(404).json({ message: 'Usuário não encontrado' });
 

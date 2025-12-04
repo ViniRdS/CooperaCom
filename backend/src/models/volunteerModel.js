@@ -48,11 +48,43 @@ async function listVolunteers(projectId) {
   return res.rows;
 }
 
+async function removeUserFromAllActiveProjects(userId) {
+  // 1. Pega os projetos ativos onde o usuário participa
+  const activeProjects = await pool.query(`
+    SELECT project_id
+    FROM prata.volunteers v
+    INNER JOIN prata.projects p ON p.id = v.project_id
+    WHERE v.user_id = $1 AND p.status = 'ativo'
+  `, [userId]);
+
+  // 2. Remove o usuário de todos os projetos ativos
+  await pool.query(`
+    DELETE FROM prata.volunteers
+    WHERE user_id = $1
+    AND project_id IN (SELECT id FROM prata.projects WHERE status = 'ativo')
+  `, [userId]);
+
+  // 3. Recalcula o current_volunteer de cada projeto
+  for (const row of activeProjects.rows) {
+    await pool.query(`
+      UPDATE prata.projects
+      SET current_volunteer = (
+        SELECT COUNT(*)
+        FROM prata.volunteers
+        WHERE project_id = $1 AND user_id IS NOT NULL
+      )
+      WHERE id = $1
+    `, [row.project_id]);
+  }
+}
+
+
 module.exports = {
   joinProject,
   leaveProject,
   isUserInProject,
   updateVolunteerCount,
   countVolunteers,
-  listVolunteers
+  listVolunteers,
+  removeUserFromAllActiveProjects
 };
