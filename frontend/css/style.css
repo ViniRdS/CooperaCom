@@ -51,9 +51,11 @@ button {
 }
 
 main {
+    flex: 1;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    padding-bottom: 50px; 
 }
 
 /* ---------------------------------------------
@@ -413,14 +415,18 @@ body.dropdown-open {
     }
 }
 
-/* ---------------------------------------------
-   RODAPÉ
----------------------------------------------*/
-footer {
-    background-color: #555;
-    padding: 10px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-size: 0.9rem;
+#footer {
+  background-color: #555;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+min-height: 50px; 
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+#footer.loaded {
+    opacity: 1;
 }

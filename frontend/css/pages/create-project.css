@@ -3,7 +3,12 @@
   color: #175b43;
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+}
+
+main{
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Caixa de fundo por trás dos inputs */

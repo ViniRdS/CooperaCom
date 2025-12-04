@@ -155,5 +155,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupNavbar();
   }
 
-  loadComponent("footer", "components/footer.html");
+loadComponent("#footer", "components/footer.html").then(() => {
+    document.getElementById("footer").classList.add("loaded");
+});
 });

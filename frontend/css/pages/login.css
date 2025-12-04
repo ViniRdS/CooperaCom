@@ -10,6 +10,7 @@ body {
   color: #175b43;
   font-size: 2rem;
   font-weight: bold;
+  padding-top: 20px;
 }
 
 .main-title span {
@@ -23,6 +24,7 @@ body {
   box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
   width: 100%;
   max-width: 400px;
+  margin-bottom: 50px;
 }
 
 .login-container h2 {

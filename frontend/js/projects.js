@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             filters.status = "ativo";
 
-            grid.innerHTML = '<p>Carregando...</p>';
             allProjects = await api.getProjects(filters) || [];
 
             if (!Array.isArray(allProjects) && allProjects.data) {

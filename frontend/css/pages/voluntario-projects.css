@@ -1,8 +1,4 @@
 /* Título */
-main h1 {
-  color: #175b43 !important;
-  font-size: 2rem;
-}
 
 main h1 span {
   color: #f4a261 !important;
@@ -53,4 +49,12 @@ h1{
 
 .btn-more:hover {
     background-color: #134032 !important;
+}
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
 }
