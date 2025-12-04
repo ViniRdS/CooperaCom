@@ -1,5 +1,5 @@
+const supabase = require("../services/supabaseClient");
 const path = require("path");
-const { supabase } = require("../services/supabaseClient");
 
 async function uploadAvatar(req, res) {
     if (!req.file) {
@@ -19,13 +19,14 @@ async function uploadAvatar(req, res) {
         if (driver === "supabase") {
             const bucket = process.env.SUPABASE_BUCKET || "avatars";
 
-            const fileBuffer = req.file.buffer;
-            const filePath = `avatars/${req.file.filename}`;
+            const ext = path.extname(req.file.originalname);
+            const fileName = `avatar_${req.userId}${ext}`;
+            const filePath = `${fileName}`;
 
             const { error: uploadError } = await supabase
                 .storage
                 .from(bucket)
-                .upload(filePath, fileBuffer, {
+                .upload(filePath, req.file.buffer, {
                     contentType: req.file.mimetype,
                     upsert: true
                 });
@@ -40,7 +41,10 @@ async function uploadAvatar(req, res) {
                 .from(bucket)
                 .getPublicUrl(filePath);
 
-            return res.json({ success: true, url: data.publicUrl });
+            return res.json({ 
+                success: true, 
+                url: `${data.publicUrl}?v=${Date.now()}` 
+            });
         }
 
     } catch (err) {

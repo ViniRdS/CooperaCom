@@ -40,7 +40,7 @@ function setupWebSocket(server) {
           return;
         }
 
-        const pRes = await pool.query('SELECT id, status, creator_id FROM prata.projects WHERE id = $1', [projectId]);
+        const pRes = await pool.query('SELECT id, status, creator_id FROM projects WHERE id = $1', [projectId]);
         const project = pRes.rows[0];
         if (!project) {
           socket.emit('error_message', { message: 'Projeto não encontrado' });
@@ -53,7 +53,7 @@ function setupWebSocket(server) {
           return;
         }
 
-        const vRes = await pool.query('SELECT 1 FROM prata.volunteers WHERE project_id = $1 AND user_id = $2', [projectId, userId]);
+        const vRes = await pool.query('SELECT 1 FROM volunteers WHERE project_id = $1 AND user_id = $2', [projectId, userId]);
         if (vRes.rows.length === 0) {
           socket.emit('error_message', { message: 'Apenas criador ou voluntários podem entrar no chat' });
           return;
@@ -72,7 +72,7 @@ function setupWebSocket(server) {
         const { projectId, content } = data;
         if (!projectId || !content || !String(content).trim()) return;
 
-        const pRes = await pool.query('SELECT id, status, creator_id FROM prata.projects WHERE id = $1', [projectId]);
+        const pRes = await pool.query('SELECT id, status, creator_id FROM projects WHERE id = $1', [projectId]);
         const project = pRes.rows[0];
 
         if (!project) {
@@ -81,7 +81,7 @@ function setupWebSocket(server) {
         }
 
         const isCreator = project.creator_id === socket.user.id;
-        const vRes = await pool.query('SELECT 1 FROM prata.volunteers WHERE project_id = $1 AND user_id = $2', [projectId, socket.user.id]);
+        const vRes = await pool.query('SELECT 1 FROM volunteers WHERE project_id = $1 AND user_id = $2', [projectId, socket.user.id]);
         if (!isCreator && vRes.rows.length === 0) {
           socket.emit('error_message', { message: 'Você não pode enviar mensagem neste projeto' });
           return;

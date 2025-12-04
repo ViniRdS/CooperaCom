@@ -8,6 +8,11 @@ async function getUser(req, res) {
     const id = parseInt(req.params.id);
     const user = await findUserById(id);
     if (!user) return res.status(404).json({ message: 'Usuário não encontrado' });
+
+    if (user.avatar) {
+      user.avatar = `${user.avatar}?v=${Date.now()}`;
+    }
+    
     res.json(user);
   } catch (err) {
     console.error(err);
