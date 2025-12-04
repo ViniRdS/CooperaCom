@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Enviando...";
+
         const data = {
             name: form.name.value.trim(),
             email: form.email.value.trim(),
@@ -24,11 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 messageEl.textContent = "";
-            }, 3000);
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Enviar";
+            }, 750);
 
         } catch (err) {
             messageEl.style.color = "red";
             messageEl.textContent = "Erro ao enviar mensagem. Tente novamente.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Enviar";
             setTimeout(() => {
                 messageEl.textContent = "";
             }, 3000);

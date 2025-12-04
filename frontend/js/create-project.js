@@ -27,9 +27,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Criando...";
+
         const numVol = Number(form.volunteers.value);
 
-        //validar mínimo de 1
         if (isNaN(numVol) || numVol < 1) {
             message.style.color = 'red';
             message.textContent = "O número de voluntários deve ser pelo menos 1.";
@@ -53,6 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (result.error) {
                 message.style.color = 'red';
                 message.textContent = result.error;
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Publicar Projeto";
                 return;
             }
 
@@ -66,6 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             message.style.color = 'red';
             message.textContent = 'Erro ao criar projeto. Tente novamente.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Publicar Projeto";
             console.error(err);
         }
     });
