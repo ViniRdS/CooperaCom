@@ -15,7 +15,7 @@ const setupWebSocket = require('./websocket');
 
 const allowedOrigins = [
   'http://localhost:8001',          // frontend local
-  'https://cooperacom-front.pages.dev/'  // frontend produção
+  'https://cooperacom-front.pages.dev'  // frontend produção
 ];
 
 app.use(cors({

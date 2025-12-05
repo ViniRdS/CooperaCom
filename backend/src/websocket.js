@@ -10,7 +10,7 @@ function setupWebSocket(server) {
   cors: {
     origin: [
       'http://localhost:8001',          // frontend local
-      'https://cooperacom-front.pages.dev/'  // frontend produção
+      'https://cooperacom-front.pages.dev'  // frontend produção
     ],
     methods: ['GET', 'POST']
   }
