@@ -1,4 +1,4 @@
-const SOCKET_SERVER_URL = 'http://localhost:3000'; // ajuste se seu backend usa outra porta
+const SOCKET_SERVER_URL = "https://cooperacom-production.up.railway.app"; // ajuste se seu backend usa outra porta
 
 let socket = null;
 let currentProjectId = null;

@@ -13,7 +13,17 @@ const server = http.createServer(app);
 
 const setupWebSocket = require('./websocket');
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:8001',          // frontend local
+  'https://meu-frontend.pages.dev'  // frontend produção, mudar dps
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,  // se usar cookies/autenticação
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+}));
+
 app.use(express.json());
 
 const healthRoutes = require('./routes/health');

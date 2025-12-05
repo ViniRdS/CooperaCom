@@ -1,4 +1,4 @@
-const apiBaseURL = "http://localhost:3000/api";
+const apiBaseURL = "https://cooperacom-production.up.railway.app/api";
 
 console.log("API em uso:", apiBaseURL);
 

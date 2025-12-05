@@ -7,11 +7,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 function setupWebSocket(server) {
   const io = new Server(server, {
-    cors: {
-      origin: 'http://localhost:8001',
-      methods: ['GET', 'POST']
-    }
-  });
+  cors: {
+    origin: [
+      'http://localhost:8001',          // frontend local
+      'https://meu-frontend.pages.dev'  // frontend produção, mudar dps
+    ],
+    methods: ['GET', 'POST']
+  }
+});
 
   io.use((socket, next) => {
     const token = socket.handshake.auth && socket.handshake.auth.token;
