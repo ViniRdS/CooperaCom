@@ -14,7 +14,7 @@ async function join(req, res) {
 
   try {
     const projectRes = await pool.query(
-      'SELECT id, status, number_volunteer, current_volunteer FROM prata.projects WHERE id = $1',
+      'SELECT id, status, number_volunteer, current_volunteer FROM projects WHERE id = $1',
       [projectId]
     );
     const project = projectRes.rows[0];
@@ -68,7 +68,7 @@ async function removeVolunteer(req, res) {
   const userId = req.userId;
 
   try {
-    const projectRes = await pool.query('SELECT creator_id FROM prata.projects WHERE id = $1', [projectId]);
+    const projectRes = await pool.query('SELECT creator_id FROM projects WHERE id = $1', [projectId]);
     const project = projectRes.rows[0];
     if (!project) return res.status(404).json({ message: 'Projeto não encontrado' });
 
@@ -76,7 +76,7 @@ async function removeVolunteer(req, res) {
       return res.status(403).json({ message: 'Apenas o criador do projeto pode remover voluntários.' });
     }
 
-    // 🔧 Verifica se o usuário realmente está no projeto antes de remover
+    //Verifica se o usuário realmente está no projeto antes de remover
     const isInProject = await isUserInProject(projectId, volunteerId);
     if (!isInProject) {
       return res.status(400).json({ message: 'Este usuário não participa deste projeto.' });

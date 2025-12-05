@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+
+# production
+/build
+
+# testing
+/coverage
+
+# IDEs
+.vscode/
+
+# Logs genéricos
+*.log
+

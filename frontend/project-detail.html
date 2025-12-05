@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages/project-detail.css">
+  <script src="js/api.js" defer></script>
+  <script src="js/components.js" defer></script>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="js/chat.js" defer></script>
+  <script src="js/project-detail.js" defer></script>
+  <title>Detalhes do Projeto | CooperaCom</title>
+</head>
+<body>
+
+<header id="navbar"></header>
+
+<main class="project-detail-container">
+
+  <!-- ===========================
+        COLUNA 1 - DETALHES
+  ============================ -->
+  <section class="project-info">
+
+    <div id="project-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <h1 id="project-title">Carregando...</h1>
+        <button id="edit-project-btn" class="edit-btn" style="display:none;">Editar</button>
+    </div>
+
+    <!--<h2>Descrição</h2>-->
+    <p id="project-description">Carregando descrição...</p>
+
+    <!-- Linha com categoria • criador • data -->
+    <p class="info-line">
+      <span id="project-category">Categoria</span> • 
+      Criado por <span id="project-creator">Autor</span> • 
+      <span id="project-date">00/00/0000</span>
+    </p>
+
+    <!-- Botão participar/sair -->
+    <button id="join-leave-btn" class="action-btn">Carregando...</button>
+
+    <!-- Barra de voluntários -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-label"></div>
+    </div>
+ 
+  </section>
+
+  <!-- ===========================
+        COLUNA 2 - AVISOS
+  ============================ -->
+  <section class="notice-section" id="project-notices">
+    <div id="notice-header" style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Quadro de Avisos</h2>
+        <button id="edit-notice-btn" class="edit-btn" style="display:none;">Editar</button>
+    </div>
+
+    <p id="notice-text"></p>
+  </section>
+
+
+  <!-- ===========================
+        CHAT (OCUPA LINHA INTEIRA)
+  ============================ -->
+  <section class="chat-section full-width">
+    <h2>Chat</h2>
+
+    <div class="chat-box">
+      <div class="chat-messages" id="chat-messages">
+        <p><strong>Carregando chat...</strong></p>
+      </div>
+
+      <div class="chat-input">
+        <input id="chat-input" type="text" placeholder="Digite sua mensagem...">
+        <button id="chat-send-btn">Enviar</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer"></footer>
+
+</body>
+</html>

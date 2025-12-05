@@ -1,0 +1,96 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    const form = document.getElementById("settings-form");
+    const deleteBtn = document.getElementById("delete-account");
+
+    /* ======================================================
+       1. CARREGAR DADOS DO USUÁRIO DO LOCALSTORAGE
+    ====================================================== */
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+        alert("Sessão expirada. Faça login novamente.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    let user = JSON.parse(storedUser);
+
+    document.getElementById("name").value = user.name || "";
+    document.getElementById("bio").value = user.bio || "";
+
+    /* ======================================================
+       2. SALVAR ALTERAÇÕES
+    ====================================================== */
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const updateData = {
+            name: document.getElementById("name").value,
+            bio: document.getElementById("bio").value
+        };
+
+        const newPassword = document.getElementById("password").value.trim();
+        if (newPassword) updateData.password = newPassword;
+
+        // ---------- SE TIVER FOTO ----------
+        const fileInput = document.getElementById("avatar");
+        const file = fileInput.files[0];
+
+        if (file) {
+            const token = localStorage.getItem("token");
+
+            const formData = new FormData();
+            formData.append("avatar", file);
+
+            const uploadRes = await fetch(`${api.baseUrl}/upload/avatar`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${token}` },
+                body: formData
+            });
+
+            const { url } = await uploadRes.json();
+            updateData.avatar = url;
+        }
+
+        // ---------- ATUALIZA PERFIL ----------
+        try {
+            const updatedUser = await api.updateProfile(updateData);
+
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            if (window.setupNavbar) setupNavbar();
+
+            alert("Alterações salvas com sucesso!");
+            window.location.href = "profile.html";
+
+        } catch (err) {
+            console.error("Erro ao atualizar perfil:", err);
+            alert("Erro ao salvar alterações.");
+        }
+    });
+
+
+    /* ======================================================
+       3. EXCLUIR CONTA
+    ====================================================== */
+    deleteBtn.addEventListener("click", async () => {
+    const confirmDelete = confirm(
+        "Deseja realmente excluir sua conta? Esta ação é irreversível."
+    );
+    if (!confirmDelete) return;
+
+    try {
+        await api.deleteUser(); // agora de verdade
+
+        // limpar dados locais APÓS deletar no banco
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        alert("Conta excluída com sucesso.");
+        window.location.href = "index.html";
+
+    } catch (err) {
+        console.error("Erro ao excluir conta:", err);
+        alert("Erro ao excluir a conta. Tente novamente.");
+    }
+});
+});
