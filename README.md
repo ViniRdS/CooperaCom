@@ -4,7 +4,7 @@ O **CooperaCom** é uma plataforma que conecta iniciativas sociais a pessoas dis
 Permite criar projetos, gerenciar voluntários, acompanhar avisos e conversar por meio de um chat interno — tudo de forma simples e intuitiva.
 
 🌍 Projeto rodando:
-https://cooperacom.pages.dev
+https://cooperacom-front.pages.dev/
 
 ---
 
